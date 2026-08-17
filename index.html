@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="format-detection" content="telephone=no">
+  <title>NhímNhor 09.09.2002 | Từ Pun Gửi Hai</title>
+  <meta name="description"
+    content="Trang web chúc mừng sinh nhật nhẹ nhàng, ấm áp từ Pun gửi đến Hai sinh ngày 09/09/2002">
+
+  <!-- Vector SVG Favicon -->
+  <link rel="icon"
+    href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23e11d48'><path d='M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z'/></svg>">
+  <meta name="theme-color" content="#fff1f5">
+
+  <!-- Stylesheets with Cache Busting -->
+  <link rel="stylesheet" href="css/style.css?v=2.5">
+  <link rel="stylesheet" href="css/components.css?v=2.5">
+</head>
+
+<body>
+
+  <!-- Ambient Dynamic Floating Blobs & Star Dust -->
+  <div class="ambient-background">
+    <div class="kawaii-blob cloud-1"></div>
+    <div class="kawaii-blob cloud-2"></div>
+    <div class="kawaii-blob cloud-3"></div>
+  </div>
+  <canvas id="starCanvas"></canvas>
+
+  <!-- Inline SVG Sprite Definitions (Zero Emojis • Pure Vector Icons) -->
+  <svg style="display: none;">
+    <symbol id="icon-ribbon" viewBox="0 0 24 24">
+      <path fill="currentColor"
+        d="M12 13.5c-1.5 0-3-1-3.8-2.2C7 9.8 7 8 8 7c1-1 2.8-1 4.2.2 1.4-1.2 3.2-1.2 4.2-.2 1 1 1 2.8-.2 4.3-.8 1.2-2.3 2.2-3.8 2.2zm-2.8-4c-.5.5-.5 1.2 0 1.9.5.7 1.6 1.4 2.8 1.6-1.3-.7-2.3-2-2.8-3.5zm5.6 0c-.5 1.5-1.5 2.8-2.8 3.5 1.2-.2 2.3-.9 2.8-1.6.5-.7.5-1.4 0-1.9zm-4.3 6.5l-3 6.5 4-2 4 2-3-6.5h-2z" />
+    </symbol>
+    <symbol id="icon-heart" viewBox="0 0 24 24">
+      <path fill="currentColor"
+        d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+    </symbol>
+    <symbol id="icon-crown" viewBox="0 0 24 24">
+      <path fill="currentColor"
+        d="M5 16L3 5l5.5 5L12 4l3.5 6L21 5l-2 11H5zm14 3c0 .6-.4 1-1 1H6c-.6 0-1-.4-1-1v-1h14v1z" />
+    </symbol>
+    <symbol id="icon-gamepad" viewBox="0 0 24 24">
+      <path fill="currentColor"
+        d="M21 6H3c-1.1 0-2 .9-2 2v8c0 1.1.9 2 2 2h18c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm-10 7H9v2H7v-2H5v-2h2V9h2v2h2v2zm4.5 2c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm3-3c-.83 0-1.5-.67-1.5-1.5S17.67 9 18.5 9s1.5.67 1.5 1.5-.67 1.5-1.5 1.5z" />
+    </symbol>
+    <symbol id="icon-sparkles" viewBox="0 0 24 24">
+      <path fill="currentColor"
+        d="M12 2L9.5 8.5 3 11l6.5 2.5L12 20l2.5-6.5L21 11l-6.5-2.5L12 2zm6 14l-1.25 3.25L13.5 20.5l3.25 1.25L18 25l1.25-3.25 3.25-1.25-3.25-1.25L18 16z" />
+    </symbol>
+    <symbol id="icon-cake" viewBox="0 0 24 24">
+      <path fill="currentColor"
+        d="M12 6a2 2 0 002-2c0-.38-.1-.73-.29-1.03l-.04-.06L12 1l-1.67 1.91-.04.06c-.19.3-.29.65-.29 1.03a2 2 0 002 2zm7 3h-2V8c0-.55-.45-1-1-1s-1 .45-1 1v1h-2V8c0-.55-.45-1-1-1s-1 .45-1 1v1H9V8c0-.55-.45-1-1-1s-1 .45-1 1v1H5c-1.1 0-2 .9-2 2v9c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2v-9c0-1.1-.9-2-2-2zm0 11H5v-4.5c.83 0 1.5-.67 1.5-1.5s-.67-1.5-1.5-1.5V11h14v1.5c-.83 0-1.5.67-1.5 1.5s.67 1.5 1.5 1.5V20z" />
+    </symbol>
+    <symbol id="icon-mail" viewBox="0 0 24 24">
+      <path fill="currentColor"
+        d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" />
+    </symbol>
+    <symbol id="icon-lock" viewBox="0 0 24 24">
+      <path fill="currentColor"
+        d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z" />
+    </symbol>
+    <symbol id="icon-download" viewBox="0 0 24 24">
+      <path fill="currentColor" d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z" />
+    </symbol>
+  </svg>
+
+  <!-- =========================================================================
+       STAGE 1: THE SECRET WAX SEAL ENVELOPE GATE
+       ========================================================================= -->
+  <div class="envelope-overlay" id="envelopeOverlay">
+    <div class="envelope-container">
+      <div class="envelope-card" id="envelopeCard">
+        <div class="envelope-pattern"></div>
+        <div class="wax-seal" id="waxSeal" title="Nhấp để mở bức thư">
+          09.09
+          <svg class="seal-icon">
+            <use href="#icon-ribbon"></use>
+          </svg>
+        </div>
+        <div class="envelope-recipient">
+          <svg class="icon-svg" style="color: var(--hk-bow-red);">
+            <use href="#icon-ribbon"></use>
+          </svg>
+          Gửi: Hai
+        </div>
+        <div class="envelope-hint">
+          <svg class="icon-svg">
+            <use href="#icon-mail"></use>
+          </svg>
+          Chạm vào phong thư để mở những lời chúc từ Pun
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Minimalist Top Navigation -->
+  <header class="top-nav">
+    <a href="#hero" class="nav-brand" title="Về đầu trang">
+      <svg class="icon-svg" style="width: 1.15em; height: 1.15em; color: var(--hk-bow-red); flex-shrink: 0;">
+        <use href="#icon-ribbon"></use>
+      </svg>
+      <span class="brand-title">NhímNhor</span>
+      <span class="badge-date">09.09.2002</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#counter" class="nav-link">Thời Gian</a></li>
+      <li><a href="#constellation" class="nav-link">Cung Xử Nữ</a></li>
+      <li><a href="#memories" class="nav-link">Hành Trình</a></li>
+      <li><a href="#letter" class="nav-link">Thư Nhắn</a></li>
+      <li><a href="#lockbox" class="nav-link">Món Quà</a></li>
+    </ul>
+  </header>
+
+  <!-- Main Content Container -->
+  <main class="main-wrapper">
+
+    <!-- =======================================================================
+         STAGE 2: HERO BIRTHDAY STAGE & LIVE AGE COUNTER
+         ======================================================================= -->
+    <section class="section hero-section" id="hero">
+      <div class="hero-avatar-wrapper">
+        <div class="hero-avatar-glow"></div>
+        <img src="assets/images/nhimnhor_1.jpg" alt="NhimNhor" class="hero-avatar-img">
+        <div class="hero-avatar-ribbon">
+          <svg class="icon-svg">
+            <use href="#icon-ribbon"></use>
+          </svg>
+        </div>
+      </div>
+
+      <div class="hero-badge">
+        <svg class="icon-svg">
+          <use href="#icon-crown"></use>
+        </svg>
+        Bảo Thuy • Streamer Free Fire • Cung Xử Nữ • Sinh ngày 09/09/2002
+      </div>
+
+      <h1 class="hero-title">
+        <span>HAPPY BIRTHDAY</span>
+        <span class="hero-title-row">
+          <span class="text-gradient">09 . 09 . 2002</span>
+          <svg class="icon-svg" style="color: var(--hk-bow-red); width: 0.9em; height: 0.9em;">
+            <use href="#icon-ribbon"></use>
+          </svg>
+        </span>
+      </h1>
+
+      <p class="hero-subtitle font-handwriting">
+        "Gửi đến Hai tuổi 24 những lời chúc ngọt ngào nhất — chúc tương lai của Hai luôn ngập tràn niềm vui, may mắn và
+        rực rỡ trên mọi chặng đường!"
+      </p>
+
+      <!-- Real-time Live Age Counter -->
+      <div class="counter-box" id="counter">
+        <p class="counter-intro">
+          <svg class="icon-svg" style="color: var(--hk-bow-red);">
+            <use href="#icon-sparkles"></use>
+          </svg>
+          Chặng đường thanh xuân rực rỡ của Hai từ ngày 09/09/2002:
+        </p>
+
+        <div class="counter-grid">
+          <div class="counter-card">
+            <div class="counter-number" id="cntDays">---</div>
+            <div class="counter-unit">Ngày Ý Nghĩa</div>
+          </div>
+          <div class="counter-card">
+            <div class="counter-number" id="cntHours">--</div>
+            <div class="counter-unit">Giờ Kiên Cường</div>
+          </div>
+          <div class="counter-card">
+            <div class="counter-number" id="cntMins">--</div>
+            <div class="counter-unit">Phút Đam Mê</div>
+          </div>
+          <div class="counter-card">
+            <div class="counter-number" id="cntSecs">--</div>
+            <div class="counter-unit">Giây Tỏa Sáng</div>
+          </div>
+        </div>
+
+        <div class="sub-counter-row">
+          <div>Khoảng thời gian: <span id="cntTotalSeconds">---</span> giây đã qua</div>
+          <div>•</div>
+          <div>Cột mốc thanh xuân: <span id="cntYearsExact">--</span> năm xinh đẹp</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =======================================================================
+         STAGE 2B: VIRGO CONSTELLATION SECTION
+         ======================================================================= -->
+    <section class="section" id="constellation">
+      <div class="section-header">
+        <span class="section-tag">ZODIAC VIRGO</span>
+        <h2 class="section-title">Chòm Sao <span class="text-gradient">Xử Nữ Của Hai</span></h2>
+        <p class="section-desc">
+          Sinh ngày 09/09, Hai là cô gái mang trong mình sự chu đáo, ấm áp, kiên trì theo đuổi đam mê livestream và luôn
+          có nét đáng yêu rất riêng!
+        </p>
+      </div>
+
+      <div class="constellation-card">
+        <div class="constellation-layout">
+          <div class="constellation-canvas-box">
+            <canvas id="constellationCanvas"></canvas>
+          </div>
+
+          <div class="constellation-info">
+            <h3
+              style="font-size: 1.55rem; color: var(--hk-bow-red); margin-bottom: 8px; display: flex; align-items: center; gap: 8px;">
+              Ngôi Sao Chủ: <span class="text-gold">Spica</span>
+              <svg class="icon-svg" style="color: var(--hk-gold);">
+                <use href="#icon-sparkles"></use>
+              </svg>
+            </h3>
+            <p style="color: var(--text-sub); font-size: 0.95rem; line-height: 1.7;">
+              Dù trong phòng stream hay ngoài cuộc sống, Hai luôn mang đến nguồn năng lượng tích cực, ấm áp. Pun tin
+              những nỗ lực bền bỉ của Hai rồi sẽ gặt hái được thật nhiều thành quả xứng đáng!
+            </p>
+
+            <div class="zodiac-traits-grid">
+              <div class="trait-pill">
+                <div class="trait-title">
+                  <svg class="icon-svg">
+                    <use href="#icon-gamepad"></use>
+                  </svg>
+                  Đam Mê Streamer
+                </div>
+                <div class="trait-desc">Chăm chỉ từng buổi stream và luôn giữ ngọn lửa nhiệt huyết.</div>
+              </div>
+              <div class="trait-pill">
+                <div class="trait-title">
+                  <svg class="icon-svg">
+                    <use href="#icon-heart"></use>
+                  </svg>
+                  Ấm Áp & Tình Cảm
+                </div>
+                <div class="trait-desc">Người từng rất thân thiết, luôn biết lắng nghe và chia sẻ.</div>
+              </div>
+              <div class="trait-pill">
+                <div class="trait-title">
+                  <svg class="icon-svg">
+                    <use href="#icon-ribbon"></use>
+                  </svg>
+                  Đáng Yêu & Dễ Thương
+                </div>
+                <div class="trait-desc">Luôn tỏa sáng với phong cách riêng ngọt ngào và đáng yêu theo cách của mình.
+                </div>
+              </div>
+              <div class="trait-pill">
+                <div class="trait-title">
+                  <svg class="icon-svg">
+                    <use href="#icon-crown"></use>
+                  </svg>
+                  Tự Lập & Mạnh Mẽ
+                </div>
+                <div class="trait-desc">Luôn tự tin bước đi vững vàng trên con đường của riêng mình.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =======================================================================
+         STAGE 3: POLAROID BENTO GRID & MUSIC PLAYER
+         ======================================================================= -->
+    <section class="section" id="memories">
+      <div class="section-header">
+        <span class="section-tag">YOUTH & FUTURE</span>
+        <h2 class="section-title">Hành Trình Rực Rỡ <span class="text-gradient">& Âm Nhạc</span></h2>
+        <p class="section-desc">
+          Chào đón tuổi 24 với ngập tràn năng lượng tích cực, nụ cười tươi tắn và những cột mốc thành công mới!
+        </p>
+      </div>
+
+      <div class="bento-grid">
+        <!-- Polaroid Card 1: Warm friendship memories -->
+        <div class="polaroid-card">
+          <div class="polaroid-inner">
+            <span class="polaroid-badge">
+              <svg class="icon-svg">
+                <use href="#icon-sparkles"></use>
+              </svg>
+              RẠNG RỠ
+            </span>
+            <div class="polaroid-img-wrapper">
+              <img src="assets/images/nhimnhor_2.jpg" alt="NhimNhor" class="polaroid-img">
+            </div>
+            <div class="polaroid-caption">
+              Nụ cười rạng rỡ của Hai
+            </div>
+          </div>
+        </div>
+
+        <!-- Polaroid Card 2: Hello Kitty cute aesthetics -->
+        <div class="polaroid-card">
+          <div class="polaroid-inner">
+            <span class="polaroid-badge">
+              <svg class="icon-svg">
+                <use href="#icon-ribbon"></use>
+              </svg>
+              Bảo Thuy
+            </span>
+            <div class="polaroid-img-wrapper">
+              <img src="assets/images/nhimnhor_3.jpg" alt="NhimNhor" class="polaroid-img">
+            </div>
+            <div class="polaroid-caption">
+              Cô nàng streamer đáng yêu
+            </div>
+          </div>
+        </div>
+
+        <!-- Polaroid Card 3: Friendship once like family -->
+        <div class="polaroid-card">
+          <div class="polaroid-inner">
+            <span class="polaroid-badge">
+              <svg class="icon-svg">
+                <use href="#icon-heart"></use>
+              </svg>
+              TUỔI 24
+            </span>
+            <div class="polaroid-img-wrapper">
+              <img src="assets/images/nhimnhor_4.jpg" alt="NhimNhor" class="polaroid-img">
+            </div>
+            <div class="polaroid-caption">
+              Tuổi 24 luôn xinh đẹp
+            </div>
+          </div>
+        </div>
+
+        <!-- Bento Large: Vintage Music Player -->
+        <div class="bento-item-large">
+          <div class="music-player-bento">
+            <div class="vinyl-box">
+              <div class="vinyl-disc" id="vinylDisc">
+                <div class="vinyl-center" style="overflow: hidden; padding: 0;">
+                  <img src="assets/images/nhimnhor_5.jpg" alt="NhimNhor"
+                    style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;">
+                </div>
+              </div>
+            </div>
+
+            <div class="player-content">
+              <div class="track-info">
+                <span class="section-tag" style="font-size: 0.75rem; padding: 3px 10px;">NOW PLAYING</span>
+                <div class="track-title" id="currentTrackTitle">Happy Birthday to You (Studio Instrumental)</div>
+                <div class="track-artist">Giai điệu sinh nhật tươi vui & ấm áp dành tặng Hai</div>
+              </div>
+
+              <div class="player-controls-row">
+                <button class="btn btn-primary" id="vinylPlayToggle" style="min-width: 180px;">
+                  Tiếp tục phát
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Bento Small: Fun Facts 2002 & Nostalgia -->
+        <div class="glass-card" style="display: flex; flex-direction: column; justify-content: center;">
+          <h3
+            style="color: var(--hk-bow-red); font-size: 1.25rem; margin-bottom: 10px; display: flex; align-items: center; gap: 8px;">
+            <svg class="icon-svg">
+              <use href="#icon-ribbon"></use>
+            </svg>
+            Tuổi 24 Bừng Sáng
+          </h3>
+          <p style="font-size: 0.95rem; color: var(--text-sub); line-height: 1.65; font-weight: 600;">
+            • Ngày 09/09/2002 mang ý nghĩa Song Cửu may mắn trọn vẹn.<br>
+            • Chúc cho tuổi 24 của Hai sẽ mở ra thật nhiều cơ hội rực rỡ, may mắn và luôn ngập tràn niềm vui trên
+            con đường tương lai!
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- =======================================================================
+         STAGE 5: SECRET LETTERBOX (Chân thành từ Pun gửi Hai)
+         ======================================================================= -->
+    <section class="section" id="letter">
+      <div class="section-header">
+        <span class="section-tag">HEARTFELT LETTER</span>
+        <h2 class="section-title">Bức Thư Nhắn <span class="text-gradient">Gửi Hai</span></h2>
+        <p class="section-desc">
+          Một vài dòng tâm sự chân thành từ Pun gửi đến Hai.
+        </p>
+      </div>
+
+      <div class="parchment-card">
+        <div class="parchment-header">
+          <div
+            style="font-family: var(--font-display); color: var(--hk-bow-red); font-weight: 700; font-size: 1rem; display: flex; align-items: center; gap: 8px;">
+            <svg class="icon-svg">
+              <use href="#icon-ribbon"></use>
+            </svg>
+            GỬI ĐẾN: HAI • 09/09/2002
+          </div>
+          <div style="font-size: 0.9rem; color: var(--text-muted); font-weight: 600;">
+            Kỷ Niệm Hai Đứa
+          </div>
+        </div>
+
+        <div class="letter-content font-handwriting" id="typedLetterContent">
+          Gửi Hai của Pun,
+
+          Chúc mừng sinh nhật Hai tròn 24 tuổi! Chúc Hai có một ngày sinh nhật thật trọn vẹn, ngập tràn niềm vui, tiếng
+          cười và những điều ngọt ngào nhất.
+
+          Bước sang tuổi mới, Pun chúc cho hành trình tương lai của Hai sẽ luôn rộng mở, ngập tràn may mắn và cơ hội
+          mới. Chúc công việc streamer của Hai ngày càng bùng nổ, luôn giữ vững ngọn lửa đam mê, lan tỏa nguồn năng
+          lượng tích cực và nhận được thật nhiều sự yêu quý, ủng hộ từ mọi người.
+
+          Tuổi 24 rực rỡ, chúc Hai luôn xinh đẹp, tự tin, thật nhiều sức khỏe và vững vàng chinh phục mọi ước mơ, mục
+          tiêu mà Hai đang ấp ủ. Chúc cho mỗi ngày trôi qua với Hai đều là một ngày ý nghĩa, hạnh phúc và gặt hái thêm
+          nhiều thành công rực rỡ nhé!
+        </div>
+
+        <div class="letter-signature font-handwriting">
+          — Pun gửi Hai những lời chúc tốt đẹp nhất
+        </div>
+      </div>
+    </section>
+
+    <!-- Secret Lockbox Section -->
+    <section class="section" id="lockbox">
+      <div class="lockbox-card">
+        <div class="lock-icon-box">
+          <svg>
+            <use href="#icon-lock"></use>
+          </svg>
+        </div>
+        <h3 style="font-size: 1.75rem; color: var(--hk-bow-red); margin-bottom: 8px;">Chiếc Hộp Kỷ Niệm</h3>
+        <p style="color: var(--text-sub); font-size: 0.95rem; font-weight: 600;">
+          Nhập mã PIN 4 chữ số (Ngày & Tháng sinh của Hai: 0909) để mở thông điệp đặc biệt nhé!
+        </p>
+
+        <div class="pin-display">
+          <input type="text" class="pin-digit" maxlength="1" placeholder="0">
+          <input type="text" class="pin-digit" maxlength="1" placeholder="9">
+          <input type="text" class="pin-digit" maxlength="1" placeholder="0">
+          <input type="text" class="pin-digit" maxlength="1" placeholder="9">
+        </div>
+
+        <button class="btn btn-primary" id="unlockBoxBtn">
+          <svg class="icon-svg">
+            <use href="#icon-sparkles"></use>
+          </svg>
+          Mở Khóa Thông Điệp
+        </button>
+
+        <div class="unlocked-gift" id="unlockedGift">
+          <div
+            style="font-size: 1.65rem; margin-bottom: 8px; color: #166534; font-weight: 700; display: flex; align-items: center; justify-content: center; gap: 8px;">
+            <svg class="icon-svg" style="color: #16a34a;">
+              <use href="#icon-heart"></use>
+            </svg>
+            LỜI CHÚC TƯƠNG LAI RỰC RỠ TỪ PUN
+          </div>
+          <div style="font-size: 1.15rem; color: #166534; font-weight: 700; margin-bottom: 6px;">
+            "Chúc Hai luôn tự tin, rạng rỡ và gặt hái thật nhiều thành công lớn trên con đường tương lai phía
+            trước!"
+          </div>
+          <p style="color: #15803d; font-size: 0.95rem; font-weight: 600;">
+            Hãy luôn mỉm cười và vững bước nhé, tương lai tươi sáng và những điều tuyệt vời nhất đang chờ đón Hai! — Pun
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- =======================================================================
+         STAGE 6: SOUVENIR CARD GENERATOR & FINALE
+         ======================================================================= -->
+    <section class="section" style="text-align: center;">
+      <div class="section-header">
+        <span class="section-tag">SOUVENIR</span>
+        <h2 class="section-title">Lưu Giữ <span class="text-gradient">Lời Chúc Tặng Hai</span></h2>
+        <p class="section-desc">
+          Tạo tấm thiệp kỷ niệm sinh nhật 09/09/2002 để lưu về máy làm kỷ niệm.
+        </p>
+      </div>
+
+      <div style="display: flex; justify-content: center;">
+        <button class="btn btn-primary" id="openSouvenirModalBtn">
+          <svg class="icon-svg">
+            <use href="#icon-download"></use>
+          </svg>
+          Xuất Thiệp Kỷ Niệm 4K
+        </button>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- =========================================================================
+       SOUVENIR MODAL DIALOG
+       ========================================================================= -->
+  <div class="souvenir-modal" id="souvenirModal">
+    <div class="souvenir-content">
+      <button class="modal-close-btn" id="closeSouvenirModalBtn" title="Đóng">✕</button>
+      <div class="souvenir-header">
+        <h3 style="font-size: 1.35rem; color: var(--hk-bow-red); margin-bottom: 2px;">Thiệp Sinh Nhật 09/09</h3>
+        <p style="font-size: 0.88rem; color: var(--text-muted); font-weight: 600; margin: 0;">Từ Pun gửi tặng Hai
+        </p>
+      </div>
+
+      <canvas id="souvenirCanvas"></canvas>
+
+      <div style="margin-top: 16px;">
+        <button class="btn btn-primary" id="downloadCardBtn" style="width: 100%;">
+          <svg class="icon-svg">
+            <use href="#icon-download"></use>
+          </svg>
+          Tải Ảnh Thiệp Về Máy
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Floating Audio Music Bar Controller -->
+  <div class="floating-audio-control" id="floatingAudioControl" title="Bật/Tắt Nhạc Nền">
+    <div class="sound-bars">
+      <div class="sound-bar"></div>
+      <div class="sound-bar"></div>
+      <div class="sound-bar"></div>
+      <div class="sound-bar"></div>
+    </div>
+    <span style="font-size: 0.9rem; font-weight: 700;">BGM</span>
+  </div>
+
+  <!-- JavaScript Modules -->
+  <script src="js/audio.js?v=2.7"></script>
+  <script src="js/confetti.js?v=2.7"></script>
+  <script src="js/card-generator.js?v=2.7"></script>
+  <script src="js/app.js?v=2.7"></script>
+
+</body>
+
+</html>
