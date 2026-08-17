@@ -1,1 +1,10 @@
+# IDE & Assistant Tooling
+.agents/
+design-system/
+
+# Temporary / Cache Files
 __pycache__/
+*.pyc
+.system_generated/
+.DS_Store
+Thumbs.db
