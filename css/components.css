@@ -1331,32 +1331,32 @@
   box-shadow: 0 1px 4px rgba(58, 43, 28, 0.15);
 }
 
-/* 4. Interactive Pull-Tab Secret Note */
+/* 4. Interactive Physical Pull-Tab Secret Note */
 .pull-tab-wrapper {
   position: relative;
   width: 100%;
-  margin-top: 22px;
+  margin-top: 24px;
   z-index: 6;
+  user-select: none;
 }
 
 .pull-tab-sleeve {
   position: relative;
-  background: var(--paper-cream);
+  background: linear-gradient(170deg, var(--paper-cream), #f4e3c3);
   border: 2px dashed var(--ink-soft);
-  border-radius: var(--radius-sm);
-  padding: 14px 18px;
-  box-shadow: 2px 4px 0 rgba(58, 43, 28, 0.16);
+  border-radius: var(--radius-md);
+  box-shadow: 3px 5px 0 rgba(58, 43, 28, 0.18), 0 10px 22px rgba(58, 43, 28, 0.14);
+  overflow: hidden;
+  padding: 14px 18px 0;
+  transition: transform var(--transition-fast);
+}
+
+.pull-tab-pocket-top {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  cursor: pointer;
-  user-select: none;
-  transition: transform var(--transition-fast), background var(--transition-fast);
-}
-
-.pull-tab-sleeve:hover {
-  transform: translateY(-2px);
-  background: var(--paper-white);
+  padding-bottom: 12px;
+  border-bottom: 1.5px dashed rgba(58, 43, 28, 0.2);
 }
 
 .pull-tab-indicator {
@@ -1364,65 +1364,63 @@
   align-items: center;
   gap: 8px;
   font-family: var(--font-handwriting);
-  font-size: 1.15rem;
+  font-size: 1.2rem;
   font-weight: 700;
   color: var(--hk-bow-red);
 }
 
-.pull-tab-handle {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 6px 14px;
-  background: var(--hk-bow-red);
-  color: #fff;
-  border-radius: var(--radius-full);
-  font-family: var(--font-mono);
+.pull-hint {
   font-size: 0.72rem;
   font-weight: 700;
+  color: var(--ink-soft);
   letter-spacing: 0.05em;
   text-transform: uppercase;
-  box-shadow: 2px 2px 0 var(--ink);
-  transition: all var(--transition-fast);
+  display: flex;
+  align-items: center;
+  gap: 5px;
 }
 
-.pull-tab-wrapper.pulled .pull-tab-handle {
-  background: var(--ink);
-  transform: scale(0.96);
-}
-
-.pull-tab-content {
-  display: grid;
-  grid-template-rows: 0fr;
-  opacity: 0;
-  transition: grid-template-rows 0.45s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.35s ease;
-  margin-top: 0;
-}
-
-.pull-tab-content > div {
+.pull-tab-tray {
+  position: relative;
   overflow: hidden;
+  min-height: 52px;
+  padding-bottom: 8px;
 }
 
-.pull-tab-wrapper.pulled .pull-tab-content {
-  grid-template-rows: 1fr;
+.pull-tab-card {
+  position: relative;
+  will-change: transform;
+  transform: translateY(0px);
+  touch-action: none;
+}
+
+.pull-tab-content-box {
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  transition: max-height 0.45s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.35s ease;
+}
+
+.pull-tab-wrapper.pulled .pull-tab-content-box {
+  max-height: 240px;
   opacity: 1;
   margin-top: 10px;
+  margin-bottom: 12px;
 }
 
 .pull-tab-paper {
   background: #fff9e6;
   border: 2px solid var(--metal-brass);
   border-radius: var(--radius-sm);
-  padding: 16px 20px;
-  box-shadow: 3px 6px 14px rgba(58, 43, 28, 0.16);
+  padding: 16px 18px;
+  box-shadow: 0 4px 12px rgba(58, 43, 28, 0.15);
   position: relative;
   transform: rotate(-0.5deg);
 }
 
-.pull-tab-paper::before {
-  content: '';
+.pull-tab-tape {
   position: absolute;
-  top: -9px;
+  top: -8px;
   left: 20px;
   width: 48px;
   height: 14px;
@@ -1431,6 +1429,75 @@
   transform: rotate(-4deg);
   border-left: 1px dashed rgba(58, 43, 28, 0.2);
   border-right: 1px dashed rgba(58, 43, 28, 0.2);
+}
+
+.pull-tab-message-header {
+  font-family: var(--font-handwriting);
+  font-weight: 700;
+  color: var(--hk-bow-red);
+  font-size: 1.2rem;
+  margin-bottom: 6px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.pull-tab-message-body {
+  font-size: 0.95rem;
+  line-height: 1.65;
+  color: var(--ink);
+  font-weight: 600;
+  margin: 0;
+}
+
+/* Draggable Pull-Tab Handle Bar */
+.pull-tab-handle-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 8px;
+  padding: 8px 16px;
+  background: var(--hk-bow-red);
+  color: #fff;
+  border-radius: var(--radius-sm);
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  box-shadow: 0 3px 6px rgba(58, 43, 28, 0.3);
+  cursor: grab;
+  touch-action: none;
+  transition: background var(--transition-fast), transform var(--transition-fast);
+}
+
+.pull-tab-handle-bar:hover {
+  background: #bf1539;
+  transform: translateY(2px);
+}
+
+.pull-tab-handle-bar:active,
+.pull-tab-handle-bar.dragging {
+  cursor: grabbing;
+  background: var(--ink);
+  transform: translateY(4px) scale(0.98);
+}
+
+.pull-handle-grip {
+  display: inline-block;
+  width: 24px;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.5);
+  border-radius: 2px;
+}
+
+.pull-tab-wrapper.pulled .pull-tab-handle-bar {
+  background: var(--ink-soft);
+}
+
+.pull-tab-wrapper.pulled .pull-tab-handle-bar:hover {
+  background: var(--ink);
 }
 
 /* 5. Accessibility Focus Rings */

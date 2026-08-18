@@ -759,32 +759,118 @@ function initScrapbookTactileInteractions() {
 }
 
 /* --------------------------------------------------------------------------
-   11. SECRET PULL-TAB NOTE INTERACTION
+   11. REAL PHYSICAL DRAGGABLE PULL-TAB INTERACTION
+   Supports true touch & mouse drag-down gesture with real-time paper reveal
    -------------------------------------------------------------------------- */
 function initSecretPullTab() {
-  const pullTab = document.getElementById('secretPullTab');
-  const handleSpan = document.querySelector('#pullTabHandle span');
-  if (!pullTab) return;
+  const pullWrapper = document.getElementById('secretPullTab');
+  const handle = document.getElementById('pullTabHandle');
+  const handleText = document.getElementById('pullHandleText');
+  const contentBox = pullWrapper ? pullWrapper.querySelector('.pull-tab-content-box') : null;
+  if (!pullWrapper || !handle || !contentBox) return;
 
-  const toggle = () => {
-    const isPulled = pullTab.classList.toggle('pulled');
-    pullTab.setAttribute('aria-expanded', isPulled ? 'true' : 'false');
-    if (handleSpan) {
-      handleSpan.textContent = isPulled ? 'Gấp lại' : 'Kéo ra xem';
-    }
-    if (window.birthdayAudio) {
-      window.birthdayAudio.playPaperRustle();
-    }
-    if (isPulled && window.particleEngine) {
-      window.particleEngine.triggerCelebrationBurst(35);
+  let isDragging = false;
+  let startY = 0;
+  let currentY = 0;
+  let dragDistance = 0;
+  let isOpen = false;
+  const DRAG_THRESHOLD = 40; // pixels to trigger open
+  const MAX_EXPAND_HEIGHT = 190;
+
+  const setOpenState = (open) => {
+    isOpen = open;
+    pullWrapper.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+
+    // Reset inline styles so CSS transitions handle smooth closing/opening
+    contentBox.style.maxHeight = '';
+    contentBox.style.opacity = '';
+    contentBox.style.transition = '';
+
+    if (isOpen) {
+      pullWrapper.classList.add('pulled');
+      if (handleText) handleText.textContent = '↟ ĐẨY LÊN ĐỂ ĐÓNG ↟';
+      if (window.birthdayAudio) window.birthdayAudio.playPaperRustle();
+      if (window.particleEngine) window.particleEngine.triggerCelebrationBurst(35);
+    } else {
+      pullWrapper.classList.remove('pulled');
+      if (handleText) handleText.textContent = '✥ NẮM & KÉO XUỐNG ↡';
+      if (window.birthdayAudio) window.birthdayAudio.playPaperRustle();
     }
   };
 
-  pullTab.addEventListener('click', toggle);
-  pullTab.addEventListener('keydown', (e) => {
+  const onPointerDown = (e) => {
+    isDragging = true;
+    startY = e.clientY;
+    currentY = e.clientY;
+    dragDistance = 0;
+    handle.classList.add('dragging');
+    contentBox.style.transition = 'none';
+
+    if (handle.setPointerCapture) {
+      try { handle.setPointerCapture(e.pointerId); } catch (err) { /* noop */ }
+    }
+  };
+
+  const onPointerMove = (e) => {
+    if (!isDragging) return;
+    currentY = e.clientY;
+    const dy = currentY - startY;
+    dragDistance = Math.abs(dy);
+
+    if (!isOpen) {
+      // Dragging downwards to pull out the secret letter
+      if (dy > 0) {
+        const height = Math.min(MAX_EXPAND_HEIGHT, dy * 1.25);
+        contentBox.style.maxHeight = `${height}px`;
+        contentBox.style.opacity = `${Math.min(1, height / 45)}`;
+      }
+    } else {
+      // Dragging upwards to push back
+      if (dy < 0) {
+        const remaining = Math.max(0, MAX_EXPAND_HEIGHT + dy * 1.25);
+        contentBox.style.maxHeight = `${remaining}px`;
+        contentBox.style.opacity = `${Math.max(0, remaining / MAX_EXPAND_HEIGHT)}`;
+      }
+    }
+  };
+
+  const onPointerUp = (e) => {
+    if (!isDragging) return;
+    isDragging = false;
+    handle.classList.remove('dragging');
+    const dy = currentY - startY;
+
+    if (dragDistance < 8) {
+      // Quick tap / click toggle
+      setOpenState(!isOpen);
+    } else {
+      // Gesture drag release evaluation
+      if (!isOpen) {
+        if (dy >= DRAG_THRESHOLD) {
+          setOpenState(true);
+        } else {
+          setOpenState(false);
+        }
+      } else {
+        if (dy <= -DRAG_THRESHOLD) {
+          setOpenState(false);
+        } else {
+          setOpenState(true);
+        }
+      }
+    }
+  };
+
+  handle.addEventListener('pointerdown', onPointerDown);
+  handle.addEventListener('pointermove', onPointerMove);
+  handle.addEventListener('pointerup', onPointerUp);
+  handle.addEventListener('pointercancel', onPointerUp);
+
+  // Keyboard accessibility
+  handle.addEventListener('keydown', (e) => {
     if (e.key === 'Enter' || e.key === ' ') {
       e.preventDefault();
-      toggle();
+      setOpenState(!isOpen);
     }
   });
 }

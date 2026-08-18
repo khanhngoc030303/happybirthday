@@ -396,33 +396,49 @@
           </div>
         </div>
 
-        <!-- Secret Pull-Tab Note (Interactive Scrapbook Easter Egg) -->
-        <div class="pull-tab-wrapper" id="secretPullTab" role="button" tabindex="0" aria-expanded="false">
+        <!-- Secret Pull-Tab Note (Interactive Physical Drag Easter Egg) -->
+        <div class="pull-tab-wrapper" id="secretPullTab" aria-expanded="false">
           <div class="pull-tab-sleeve">
-            <div class="pull-tab-indicator">
-              <svg class="icon-svg" style="color: var(--hk-bow-red);">
-                <use href="#icon-sparkles"></use>
-              </svg>
-              <span>Mẩu Giấy Bí Mật</span>
-            </div>
-            <div class="pull-tab-handle" id="pullTabHandle">
-              <span>Kéo ra xem</span>
-              <svg class="icon-svg" style="width: 1em; height: 1em;">
-                <use href="#icon-ribbon"></use>
-              </svg>
-            </div>
-          </div>
-          <div class="pull-tab-content">
-            <div class="pull-tab-paper">
-              <div style="font-family: var(--font-handwriting); font-weight: 700; color: var(--hk-bow-red); font-size: 1.2rem; margin-bottom: 6px; display: flex; align-items: center; gap: 6px;">
+            <div class="pull-tab-pocket-top">
+              <div class="pull-tab-indicator">
                 <svg class="icon-svg" style="color: var(--hk-bow-red);">
-                  <use href="#icon-heart"></use>
+                  <use href="#icon-sparkles"></use>
                 </svg>
-                Lời nhắn ẩn từ Pun:
+                <span>Ngăn Kéo Bí Mật</span>
               </div>
-              <p style="font-size: 0.95rem; line-height: 1.65; color: var(--ink); font-weight: 600; margin: 0;">
-                "Dù thời gian trôi qua, Pun vẫn luôn mong Hai giữ trọn nụ cười rạng rỡ và sự tự tin này. Chúc cho mỗi ước mơ tuổi 24 của Hai đều trở thành hiện thực rực rỡ nhé! 🌻✨"
-              </p>
+              <div class="pull-hint font-mono">
+                <svg class="icon-svg" style="width: 0.9em; height: 0.9em;">
+                  <use href="#icon-star"></use>
+                </svg>
+                Kéo xuống xem bí mật ↡
+              </div>
+            </div>
+
+            <!-- Hidden pull-out paper card tray -->
+            <div class="pull-tab-tray">
+              <div class="pull-tab-card" id="pullTabCard">
+                <div class="pull-tab-content-box">
+                  <div class="pull-tab-paper">
+                    <div class="pull-tab-tape"></div>
+                    <div class="pull-tab-message-header">
+                      <svg class="icon-svg" style="color: var(--hk-bow-red);">
+                        <use href="#icon-heart"></use>
+                      </svg>
+                      Lời nhắn ẩn từ Pun:
+                    </div>
+                    <p class="pull-tab-message-body">
+                      "Dù thời gian trôi qua, Pun vẫn luôn mong Hai giữ trọn nụ cười rạng rỡ và sự tự tin này. Chúc cho mỗi ước mơ tuổi 24 của Hai đều trở thành hiện thực rực rỡ nhé! 🌻✨"
+                    </p>
+                  </div>
+                </div>
+
+                <!-- Draggable Pull Handle Bar -->
+                <div class="pull-tab-handle-bar" id="pullTabHandle" role="button" tabindex="0" title="Nắm và kéo xuống hoặc chạm để mở">
+                  <span class="pull-handle-grip"></span>
+                  <span class="pull-handle-text" id="pullHandleText">✥ NẮM & KÉO XUỐNG ↡</span>
+                  <span class="pull-handle-grip"></span>
+                </div>
+              </div>
             </div>
           </div>
         </div>
