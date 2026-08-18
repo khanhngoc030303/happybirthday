@@ -33,6 +33,15 @@
   --hk-gold-bright: #e0a628;
   --hk-mint: #8fae7b;
 
+  /* ---- VINTAGE CRAFTSMANSHIP & METALLICS ---- */
+  --metal-brass: #b88e4c;
+  --metal-brass-light: #e4c278;
+  --metal-brass-dark: #6e4e1f;
+  --metal-brass-shadow: rgba(80, 55, 20, 0.35);
+  --stamp-crimson: #a62438;
+  --stamp-indigo: #2c4263;
+  --botanical-leaf: #627752;
+
   /* Legacy aliases still referenced across components */
   --bg-primary: var(--paper-kraft);
   --bg-secondary: var(--paper-cream-2);
@@ -327,6 +336,22 @@ h1, h2, h3, h4 {
   max-width: 1140px;
   margin: 0 auto;
   padding: 0 var(--space-md);
+}
+
+/* Handmade Notebook Stitched Spine (visible on desktop/tablet) */
+@media (min-width: 960px) {
+  .main-wrapper::before {
+    content: '';
+    position: absolute;
+    top: 24px;
+    bottom: 24px;
+    left: -12px;
+    width: 4px;
+    border-left: 3px dashed rgba(80, 55, 20, 0.38);
+    box-shadow: 1.5px 0 0 rgba(255, 250, 240, 0.45);
+    pointer-events: none;
+    z-index: 10;
+  }
 }
 
 .section {

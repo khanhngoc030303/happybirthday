@@ -126,6 +126,60 @@ class BirthdayAudioEngine {
     setTimeout(() => this.playTone(1318.51, 'sine', 0.22, 0.14), 60);
   }
 
+  // SFX: Tactile Paper Rustle (synthetic noise sweep for notebook page/fold)
+  playPaperRustle() {
+    this.init();
+    if (this.isMuted || !this.sfxCtx) return;
+
+    try {
+      const bufferSize = this.sfxCtx.sampleRate * 0.14; // 140ms
+      const buffer = this.sfxCtx.createBuffer(1, bufferSize, this.sfxCtx.sampleRate);
+      const output = buffer.getChannelData(0);
+      for (let i = 0; i < bufferSize; i++) {
+        output[i] = Math.random() * 2 - 1;
+      }
+
+      const whiteNoise = this.sfxCtx.createBufferSource();
+      whiteNoise.buffer = buffer;
+
+      const filter = this.sfxCtx.createBiquadFilter();
+      filter.type = 'bandpass';
+      filter.frequency.setValueAtTime(1400, this.sfxCtx.currentTime);
+      filter.Q.setValueAtTime(1.8, this.sfxCtx.currentTime);
+
+      const gain = this.sfxCtx.createGain();
+      gain.gain.setValueAtTime(0.08, this.sfxCtx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.0001, this.sfxCtx.currentTime + 0.14);
+
+      whiteNoise.connect(filter);
+      filter.connect(gain);
+      gain.connect(this.sfxCtx.destination);
+
+      whiteNoise.start();
+    } catch (e) {
+      // Fallback tone
+      this.playTone(400, 'triangle', 0.08, 0.05);
+    }
+  }
+
+  // SFX: Ink Stamp Thud (soft rubber stamp thump)
+  playStampThud() {
+    this.init();
+    if (this.isMuted || !this.sfxCtx) return;
+
+    this.playTone(120, 'sine', 0.12, 0.22);
+    setTimeout(() => this.playTone(280, 'triangle', 0.08, 0.1), 20);
+  }
+
+  // SFX: Metallic Paperclip Click
+  playPaperClipClick() {
+    this.init();
+    if (this.isMuted || !this.sfxCtx) return;
+
+    this.playTone(1800, 'triangle', 0.04, 0.08);
+    setTimeout(() => this.playTone(2400, 'sine', 0.03, 0.06), 15);
+  }
+
   playTone(freq, type = 'sine', duration = 0.5, gainLevel = 0.15) {
     if (this.isMuted || !this.sfxCtx) return;
 

@@ -34,6 +34,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // 9. Sticky Fold Note (tap-to-unfold paper interaction)
   initStickyFold();
+
+  // 10. Scrapbook Tactile Micro-Interactions (Stamps, Paper clips, Tabs)
+  initScrapbookTactileInteractions();
 });
 
 /* --------------------------------------------------------------------------
@@ -692,6 +695,9 @@ function initStickyFold() {
   const toggle = () => {
     const isOpen = fold.classList.toggle('unfolded');
     fold.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    if (window.birthdayAudio) {
+      window.birthdayAudio.playPaperRustle();
+    }
   };
 
   fold.addEventListener('click', toggle);
@@ -700,5 +706,51 @@ function initStickyFold() {
       e.preventDefault();
       toggle();
     }
+  });
+}
+
+/* --------------------------------------------------------------------------
+   10. SCRAPBOOK TACTILE MICRO-INTERACTIONS
+   -------------------------------------------------------------------------- */
+function initScrapbookTactileInteractions() {
+  // Diary Tabs paper sound
+  const diaryTabs = document.querySelectorAll('.diary-tab');
+  diaryTabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      if (window.birthdayAudio) {
+        window.birthdayAudio.playPaperRustle();
+      }
+    });
+  });
+
+  // Postal Stamps interactive thud & mini celebration
+  const postalStamps = document.querySelectorAll('.postal-stamp');
+  postalStamps.forEach(stamp => {
+    stamp.addEventListener('click', () => {
+      if (window.birthdayAudio) {
+        window.birthdayAudio.playStampThud();
+      }
+      stamp.style.transform = 'rotate(-4deg) scale(1.15)';
+      setTimeout(() => {
+        stamp.style.transform = '';
+      }, 300);
+      if (window.particleEngine) {
+        window.particleEngine.triggerCelebrationBurst(25);
+      }
+    });
+  });
+
+  // Paper clips metallic click
+  const paperClips = document.querySelectorAll('.paper-clip');
+  paperClips.forEach(clip => {
+    clip.style.pointerEvents = 'auto';
+    clip.style.cursor = 'pointer';
+    clip.title = 'Kẹp giấy kim loại vintage';
+    clip.addEventListener('click', (e) => {
+      e.stopPropagation();
+      if (window.birthdayAudio) {
+        window.birthdayAudio.playPaperClipClick();
+      }
+    });
   });
 }

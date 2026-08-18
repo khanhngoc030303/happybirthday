@@ -257,6 +257,10 @@ class SouvenirCardGenerator {
     ctx.font = '600 20px "Be Vietnam Pro", sans-serif';
     ctx.fillText('From Pun with all best wishes ♥', width / 2, cardY + cardH - 38);
 
+    // Vintage Scrapbook Accents on Canvas: Brass Paper Clip & Postal Stamp
+    this.drawPaperClip(ctx, cardX + cardW - 65, cardY - 18, 22, 68);
+    this.drawPostalStamp(ctx, cardX + 110, cardY + cardH - 70, 48, '09.09.26', 'PUN TO HAI', 'SPECIAL AIR MAIL');
+
     // 11. Footer (Y ~1538 — dưới safe zone TikTok nhưng trong safe zone FB Story)
     ctx.fillStyle = '#6b5439';
     ctx.font = '600 17px "Space Grotesk", sans-serif';
@@ -340,6 +344,85 @@ class SouvenirCardGenerator {
     }
     ctx.closePath();
     ctx.fill();
+    ctx.restore();
+  }
+
+  drawPaperClip(ctx, x, y, width, height) {
+    ctx.save();
+    ctx.translate(x, y);
+    ctx.rotate((8 * Math.PI) / 180);
+
+    // Brass outer clip
+    const brassGrad = ctx.createLinearGradient(0, 0, width, height);
+    brassGrad.addColorStop(0, '#e4c278');
+    brassGrad.addColorStop(0.5, '#b88e4c');
+    brassGrad.addColorStop(1, '#6e4e1f');
+
+    ctx.shadowColor = 'rgba(80, 55, 20, 0.4)';
+    ctx.shadowBlur = 10;
+    ctx.shadowOffsetY = 4;
+
+    ctx.fillStyle = brassGrad;
+    ctx.beginPath();
+    ctx.roundRect(0, 0, width, height, [width / 2, width / 2, 0, 0]);
+    ctx.fill();
+
+    ctx.shadowColor = 'transparent';
+
+    // Inner cutout
+    ctx.fillStyle = '#fbf3e2';
+    ctx.beginPath();
+    ctx.roundRect(4, 6, width - 8, height - 6, [width / 2 - 4, width / 2 - 4, 0, 0]);
+    ctx.fill();
+
+    ctx.restore();
+  }
+
+  drawPostalStamp(ctx, cx, cy, radius, dateText, labelTop, labelBottom) {
+    ctx.save();
+    ctx.translate(cx, cy);
+    ctx.rotate((-14 * Math.PI) / 180);
+
+    ctx.strokeStyle = '#a62438';
+    ctx.fillStyle = '#a62438';
+
+    // Outer dashed circle
+    ctx.lineWidth = 3;
+    ctx.setLineDash([5, 5]);
+    ctx.beginPath();
+    ctx.arc(0, 0, radius, 0, Math.PI * 2);
+    ctx.stroke();
+
+    // Inner solid circle
+    ctx.lineWidth = 1.5;
+    ctx.setLineDash([]);
+    ctx.beginPath();
+    ctx.arc(0, 0, radius - 8, 0, Math.PI * 2);
+    ctx.stroke();
+
+    // Text labels
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+
+    ctx.font = 'bold 12px "Space Grotesk", sans-serif';
+    ctx.fillText(labelTop, 0, -radius * 0.45);
+
+    ctx.font = 'bold 18px "Space Grotesk", sans-serif';
+    ctx.fillText(dateText, 0, 0);
+
+    ctx.font = 'bold 10px "Space Grotesk", sans-serif';
+    ctx.fillText(labelBottom, 0, radius * 0.48);
+
+    // Postal wavy cancellation lines on the right
+    ctx.lineWidth = 2;
+    for (let row = -16; row <= 16; row += 10) {
+      ctx.beginPath();
+      ctx.moveTo(radius + 12, row);
+      ctx.bezierCurveTo(radius + 28, row - 6, radius + 44, row + 6, radius + 60, row);
+      ctx.bezierCurveTo(radius + 76, row - 6, radius + 92, row + 6, radius + 108, row);
+      ctx.stroke();
+    }
+
     ctx.restore();
   }
 
