@@ -139,7 +139,7 @@ class SouvenirCardGenerator {
     ctx.fillStyle = '#d81e46';
     ctx.font = 'bold 20px "Space Grotesk", "Be Vietnam Pro", monospace';
     ctx.letterSpacing = '3px';
-    ctx.fillText('FROM PUN TO HAI  •  09.09.2002', width / 2, 408);
+    ctx.fillText('FROM PUN TO HAI  •  09.09.2026', width / 2, 408);
     ctx.letterSpacing = '0px';
 
     // 8. Main Title (handwriting-first hierarchy)
