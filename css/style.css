@@ -105,6 +105,10 @@ body {
   padding-right: var(--sar);
 }
 
+body.modal-lock {
+  overflow: hidden;
+}
+
 /* Fix iOS Safari auto-zoom on inputs */
 input, select, textarea, button {
   font-size: 16px;

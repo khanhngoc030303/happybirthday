@@ -21,16 +21,32 @@ class SouvenirCardGenerator {
     const downloadBtn = document.getElementById('downloadCardBtn');
     const modal = document.getElementById('souvenirModal');
 
+    const openModal = async () => {
+      modal.classList.add('open');
+      document.body.classList.add('modal-lock');
+      await this.renderCard();
+    };
+
+    const closeModal = () => {
+      modal.classList.remove('open');
+      document.body.classList.remove('modal-lock');
+    };
+
     if (openBtn && modal) {
-      openBtn.addEventListener('click', async () => {
-        modal.classList.add('open');
-        await this.renderCard();
-      });
+      openBtn.addEventListener('click', openModal);
     }
 
     if (closeBtn && modal) {
-      closeBtn.addEventListener('click', () => {
-        modal.classList.remove('open');
+      closeBtn.addEventListener('click', closeModal);
+    }
+
+    if (modal) {
+      modal.addEventListener('click', (e) => {
+        if (e.target === modal) closeModal();
+      });
+
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && modal.classList.contains('open')) closeModal();
       });
     }
 
@@ -327,25 +343,7 @@ class SouvenirCardGenerator {
     );
     if (!blob) return;
 
-    // Ưu tiên: File System Access API (Chrome 86+) — user chọn nơi lưu, tên file đúng 100%
-    if ('showSaveFilePicker' in window) {
-      try {
-        const handle = await window.showSaveFilePicker({
-          suggestedName: FILENAME,
-          types: [{ description: 'PNG Image', accept: { 'image/png': ['.png'] } }]
-        });
-        const writable = await handle.createWritable();
-        await writable.write(blob);
-        await writable.close();
-        if (window.particleEngine) window.particleEngine.triggerHeartExplosion();
-        return;
-      } catch (e) {
-        // User hủy dialog hoặc không hỗ trợ → fallback
-        if (e.name === 'AbortError') return;
-      }
-    }
-
-    // Fallback: tạo Blob URL và click <a download>
+    // Tải thẳng về Downloads: tạo Blob URL và click <a download>
     // Chrome 66+ giữ user gesture qua async/await → download với tên file đúng
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
