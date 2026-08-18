@@ -17,8 +17,8 @@ document.addEventListener('DOMContentLoaded', () => {
   // 3. Virgo Constellation Canvas
   initConstellationCanvas();
 
-  // 4. Polaroid 3D Tilt
-  initPolaroidTilt();
+  // 4. Draggable Collage Photo (tactile paper interaction)
+  initDraggablePhotos();
 
   // 5. Music Player
   initVinylPlayer();
@@ -28,6 +28,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // 7. Floating Heart Burst & Audio Widget
   initFloatingAudioAndHeart();
+
+  // 8. Handwritten Letter Typewriter Reveal
+  initLetterTypewriter();
+
+  // 9. Sticky Fold Note (tap-to-unfold paper interaction)
+  initStickyFold();
 });
 
 /* --------------------------------------------------------------------------
@@ -447,33 +453,74 @@ function initConstellationCanvas() {
 }
 
 /* --------------------------------------------------------------------------
-   4. POLAROID 3D TILT EFFECT
+   4. DRAGGABLE COLLAGE PHOTO
+   A pinned-photo tactile interaction: nudge it, it springs back into place.
+   touch-action is scoped only to the draggable element so page scroll is
+   never blocked.
    -------------------------------------------------------------------------- */
-function initPolaroidTilt() {
-  const cards = document.querySelectorAll('.polaroid-card');
+function initDraggablePhotos() {
+  const items = document.querySelectorAll('.collage-photo[data-drag="true"]');
 
-  cards.forEach(card => {
-    const inner = card.querySelector('.polaroid-inner');
-    if (!inner) return;
+  items.forEach(el => {
+    const baseRotation = readRotationDeg(el);
+    let originX = 0;
+    let originY = 0;
+    let offsetX = 0;
+    let offsetY = 0;
+    let dragging = false;
 
-    card.addEventListener('mousemove', (e) => {
-      const rect = card.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
+    const applyTransform = () => {
+      el.style.transform = `translate(${offsetX}px, ${offsetY}px) rotate(${baseRotation}deg)`;
+    };
 
-      const centerX = rect.width / 2;
-      const centerY = rect.height / 2;
+    const startDrag = (e) => {
+      dragging = true;
+      originX = e.clientX - offsetX;
+      originY = e.clientY - offsetY;
+      el.style.transition = 'none';
+      el.style.zIndex = 30;
+      if (el.setPointerCapture) {
+        try { el.setPointerCapture(e.pointerId); } catch (err) { /* noop */ }
+      }
+    };
 
-      const rotateX = ((y - centerY) / centerY) * -10;
-      const rotateY = ((x - centerX) / centerX) * 10;
+    const moveDrag = (e) => {
+      if (!dragging) return;
+      offsetX = e.clientX - originX;
+      offsetY = e.clientY - originY;
+      // Gentle bounds so the photo can't be dragged off-canvas
+      offsetX = Math.max(-70, Math.min(70, offsetX));
+      offsetY = Math.max(-70, Math.min(70, offsetY));
+      applyTransform();
+    };
 
-      inner.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-8px)`;
-    });
+    const endDrag = () => {
+      if (!dragging) return;
+      dragging = false;
+      el.style.transition = 'transform 0.55s cubic-bezier(0.34, 1.56, 0.64, 1)';
+      offsetX = 0;
+      offsetY = 0;
+      applyTransform();
+      el.style.zIndex = '';
+    };
 
-    card.addEventListener('mouseleave', () => {
-      inner.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) translateY(0)';
-    });
+    el.addEventListener('pointerdown', startDrag);
+    el.addEventListener('pointermove', moveDrag);
+    el.addEventListener('pointerup', endDrag);
+    el.addEventListener('pointercancel', endDrag);
+    el.addEventListener('pointerleave', () => { if (dragging) endDrag(); });
   });
+}
+
+function readRotationDeg(el) {
+  const transform = window.getComputedStyle(el).transform;
+  if (!transform || transform === 'none') return 0;
+  const match = transform.match(/matrix\(([^)]+)\)/);
+  if (!match) return 0;
+  const parts = match[1].split(',').map(parseFloat);
+  const a = parts[0];
+  const b = parts[1];
+  return Math.round(Math.atan2(b, a) * (180 / Math.PI) * 100) / 100;
 }
 
 /* --------------------------------------------------------------------------
@@ -580,4 +627,78 @@ function initFloatingAudioAndHeart() {
       }
     });
   }
+}
+
+/* --------------------------------------------------------------------------
+   8. HANDWRITTEN LETTER — TYPEWRITER REVEAL
+   Captures the letter's real text, clears it, then types it back out
+   (a few characters per tick with a blinking caret) once the letter
+   scrolls into view.
+   -------------------------------------------------------------------------- */
+function initLetterTypewriter() {
+  const el = document.getElementById('typedLetterContent');
+  if (!el) return;
+
+  const fullText = el.textContent.trim();
+  el.textContent = '';
+
+  let started = false;
+  let i = 0;
+  const CHARS_PER_TICK = 2;
+  const TICK_MS = 16;
+
+  function typeStep() {
+    i += CHARS_PER_TICK;
+    if (i < fullText.length) {
+      el.textContent = fullText.slice(0, i);
+      const cursor = document.createElement('span');
+      cursor.className = 'type-cursor';
+      cursor.textContent = ' ';
+      el.appendChild(cursor);
+      setTimeout(typeStep, TICK_MS);
+    } else {
+      el.textContent = fullText;
+    }
+  }
+
+  function startTyping() {
+    if (started) return;
+    started = true;
+    typeStep();
+  }
+
+  if ('IntersectionObserver' in window) {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          startTyping();
+          observer.disconnect();
+        }
+      });
+    }, { threshold: 0.25 });
+    observer.observe(el);
+  } else {
+    startTyping();
+  }
+}
+
+/* --------------------------------------------------------------------------
+   9. STICKY FOLD NOTE — tap to unfold
+   -------------------------------------------------------------------------- */
+function initStickyFold() {
+  const fold = document.getElementById('funFactFold');
+  if (!fold) return;
+
+  const toggle = () => {
+    const isOpen = fold.classList.toggle('unfolded');
+    fold.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+  };
+
+  fold.addEventListener('click', toggle);
+  fold.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      toggle();
+    }
+  });
 }

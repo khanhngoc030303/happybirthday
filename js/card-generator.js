@@ -71,24 +71,24 @@ class SouvenirCardGenerator {
     const ctx = this.ctx;
     ctx.clearRect(0, 0, width, height);
 
-    // 1. Background Luxury Pastel Gradient
+    // 1. Background Kraft Paper Gradient
     const bgGrad = ctx.createLinearGradient(0, 0, width, height);
-    bgGrad.addColorStop(0, '#fffbfb');
-    bgGrad.addColorStop(0.3, '#fff0f4');
-    bgGrad.addColorStop(0.7, '#ffe0eb');
-    bgGrad.addColorStop(1, '#ffd0e0');
+    bgGrad.addColorStop(0, '#fffaf0');
+    bgGrad.addColorStop(0.3, '#fbf3e2');
+    bgGrad.addColorStop(0.7, '#f1e2bf');
+    bgGrad.addColorStop(1, '#dcc39a');
     ctx.fillStyle = bgGrad;
     ctx.fillRect(0, 0, width, height);
 
     // 2. Soft Ambient Radial Light (higher center for taller canvas)
     const radialGlow = ctx.createRadialGradient(width / 2, 700, 80, width / 2, 700, 700);
-    radialGlow.addColorStop(0, 'rgba(255, 255, 255, 0.9)');
-    radialGlow.addColorStop(1, 'rgba(255, 255, 255, 0)');
+    radialGlow.addColorStop(0, 'rgba(255, 250, 240, 0.9)');
+    radialGlow.addColorStop(1, 'rgba(255, 250, 240, 0)');
     ctx.fillStyle = radialGlow;
     ctx.fillRect(0, 0, width, height);
 
-    // 3. Subtle Polka Dot Pattern
-    ctx.fillStyle = 'rgba(225, 29, 72, 0.028)';
+    // 3. Subtle Paper Grain Dot Pattern
+    ctx.fillStyle = 'rgba(58, 43, 28, 0.045)';
     for (let x = 30; x < width; x += 44) {
       for (let y = 30; y < height; y += 44) {
         ctx.beginPath();
@@ -97,17 +97,19 @@ class SouvenirCardGenerator {
       }
     }
 
-    // 4. Elegant Outer & Inner Border Frames
-    ctx.strokeStyle = 'rgba(225, 29, 72, 0.22)';
-    ctx.lineWidth = 2.5;
+    // 4. Deckled-look Outer & Inner Border Frames
+    ctx.strokeStyle = 'rgba(58, 43, 28, 0.3)';
+    ctx.lineWidth = 3;
+    ctx.setLineDash([2, 10]);
     ctx.beginPath();
-    ctx.roundRect(36, 36, width - 72, height - 72, 44);
+    ctx.roundRect(36, 36, width - 72, height - 72, 20);
     ctx.stroke();
+    ctx.setLineDash([]);
 
-    ctx.strokeStyle = 'rgba(255, 255, 255, 0.82)';
+    ctx.strokeStyle = 'rgba(255, 250, 240, 0.85)';
     ctx.lineWidth = 4;
     ctx.beginPath();
-    ctx.roundRect(52, 52, width - 104, height - 104, 34);
+    ctx.roundRect(52, 52, width - 104, height - 104, 14);
     ctx.stroke();
 
     // 5. Decorative Corner Elements (scaled for 1080px)
@@ -116,12 +118,12 @@ class SouvenirCardGenerator {
       [78, height - 78], [width - 78, height - 78]
     ];
     corners.forEach(([ccx, ccy]) => {
-      ctx.fillStyle = '#e11d48';
+      ctx.fillStyle = '#d81e46';
       ctx.beginPath();
       ctx.arc(ccx, ccy, 6, 0, Math.PI * 2);
       ctx.fill();
 
-      ctx.fillStyle = 'rgba(225, 29, 72, 0.25)';
+      ctx.fillStyle = 'rgba(216, 30, 70, 0.25)';
       ctx.beginPath();
       ctx.arc(ccx, ccy, 13, 0, Math.PI * 2);
       ctx.fill();
@@ -134,31 +136,33 @@ class SouvenirCardGenerator {
 
     // 7. Top Header Tag
     ctx.textAlign = 'center';
-    ctx.fillStyle = '#e11d48';
+    ctx.fillStyle = '#d81e46';
     ctx.font = 'bold 20px "Space Grotesk", "Be Vietnam Pro", monospace';
     ctx.letterSpacing = '3px';
     ctx.fillText('FROM PUN TO HAI  •  09.09.2002', width / 2, 408);
     ctx.letterSpacing = '0px';
 
-    // 8. Main Title
-    ctx.fillStyle = '#e11d48';
-    ctx.font = 'bold 52px "Baloo 2", "Be Vietnam Pro", sans-serif';
-    ctx.fillText('HAPPY BIRTHDAY', width / 2, 484);
+    // 8. Main Title (handwriting-first hierarchy)
+    ctx.fillStyle = '#d81e46';
+    ctx.font = '700 44px "Mali", "Be Vietnam Pro", cursive';
+    ctx.fillText('Happy Birthday', width / 2, 478);
 
-    ctx.fillStyle = '#1e1017';
-    ctx.font = 'bold 68px "Baloo 2", "Be Vietnam Pro", sans-serif';
-    ctx.fillText('Nguyễn Ngọc Bảo Thuy', width / 2, 572);
+    ctx.fillStyle = '#3a2b1c';
+    ctx.font = 'bold 66px "Baloo 2", "Be Vietnam Pro", sans-serif';
+    ctx.fillText('Nguyễn Ngọc Bảo Thuy', width / 2, 570);
 
     // 9. Pill Badge (Date & Zodiac)
-    ctx.fillStyle = '#ffffff';
+    ctx.fillStyle = '#fffaf0';
     ctx.beginPath();
-    ctx.roundRect(width / 2 - 195, 606, 390, 54, 27);
+    ctx.roundRect(width / 2 - 195, 606, 390, 54, 8);
     ctx.fill();
-    ctx.strokeStyle = 'rgba(254, 205, 211, 0.9)';
+    ctx.strokeStyle = 'rgba(58, 43, 28, 0.35)';
     ctx.lineWidth = 2;
+    ctx.setLineDash([4, 5]);
     ctx.stroke();
+    ctx.setLineDash([]);
 
-    ctx.fillStyle = '#e11d48';
+    ctx.fillStyle = '#d81e46';
     ctx.font = 'bold 21px "Space Grotesk", "Be Vietnam Pro", monospace';
     ctx.fillText('09 . 09 . 2002  |  VIRGO', width / 2, 640);
 
@@ -171,14 +175,14 @@ class SouvenirCardGenerator {
     const cardH = 750;
 
     // Card shadow
-    ctx.shadowColor = 'rgba(225, 29, 72, 0.11)';
-    ctx.shadowBlur = 44;
-    ctx.shadowOffsetY = 18;
+    ctx.shadowColor = 'rgba(58, 43, 28, 0.18)';
+    ctx.shadowBlur = 34;
+    ctx.shadowOffsetY = 14;
 
     // Card background
-    ctx.fillStyle = 'rgba(255, 255, 255, 0.96)';
+    ctx.fillStyle = 'rgba(251, 243, 226, 0.98)';
     ctx.beginPath();
-    ctx.roundRect(cardX, cardY, cardW, cardH, 36);
+    ctx.roundRect(cardX, cardY, cardW, cardH, 14);
     ctx.fill();
 
     // Reset shadow
@@ -187,28 +191,33 @@ class SouvenirCardGenerator {
     ctx.shadowOffsetY = 0;
 
     // Card border
-    ctx.strokeStyle = 'rgba(254, 205, 211, 0.8)';
+    ctx.strokeStyle = 'rgba(58, 43, 28, 0.28)';
     ctx.lineWidth = 2;
     ctx.stroke();
 
     // Card Top Pill Tag
-    ctx.fillStyle = '#ffe4eb';
+    ctx.fillStyle = '#fff2da';
     ctx.beginPath();
-    ctx.roundRect(width / 2 - 224, cardY + 34, 448, 50, 25);
+    ctx.roundRect(width / 2 - 224, cardY + 34, 448, 50, 8);
     ctx.fill();
+    ctx.strokeStyle = 'rgba(216, 30, 70, 0.4)';
+    ctx.lineWidth = 1.5;
+    ctx.setLineDash([3, 4]);
+    ctx.stroke();
+    ctx.setLineDash([]);
 
-    ctx.fillStyle = '#e11d48';
+    ctx.fillStyle = '#d81e46';
     ctx.font = 'bold 21px "Be Vietnam Pro", sans-serif';
     ctx.fillText('CHÚC MỪNG HAI TUỔI 24 RỰC RỠ', width / 2, cardY + 66);
 
     // Decorative Sparkle Stars
-    this.drawStar(ctx, width / 2 - 252, cardY + 60, 11, '#d97706');
-    this.drawStar(ctx, width / 2 + 252, cardY + 60, 11, '#d97706');
+    this.drawStar(ctx, width / 2 - 252, cardY + 60, 11, '#b4770f');
+    this.drawStar(ctx, width / 2 + 252, cardY + 60, 11, '#b4770f');
 
     // Heartfelt Wishes
     // line spacing 50px × 10 lines: last idx9 = cardY+145+9×50 = 692+145+450 = 1287
     // Divider: cardY+cardH-88 = 1354  →  gap = 67px ✓  No overlap!
-    ctx.fillStyle = '#1e1017';
+    ctx.fillStyle = '#3a2b1c';
     ctx.font = 'bold 28px "Mali", "Be Vietnam Pro", cursive';
     const lines = [
       'Chúc Hai bước sang tuổi 24',
@@ -228,26 +237,28 @@ class SouvenirCardGenerator {
     });
 
     // Decorative Mini Divider
-    ctx.strokeStyle = 'rgba(254, 205, 211, 0.8)';
+    ctx.strokeStyle = 'rgba(58, 43, 28, 0.3)';
     ctx.lineWidth = 2;
+    ctx.setLineDash([2, 6]);
     ctx.beginPath();
     ctx.moveTo(width / 2 - 160, cardY + cardH - 88);
     ctx.lineTo(width / 2 + 160, cardY + cardH - 88);
     ctx.stroke();
+    ctx.setLineDash([]);
 
     // Mini Heart in divider center
-    ctx.fillStyle = '#e11d48';
+    ctx.fillStyle = '#d81e46';
     ctx.beginPath();
     ctx.arc(width / 2, cardY + cardH - 88, 5, 0, Math.PI * 2);
     ctx.fill();
 
     // Signature inside card
-    ctx.fillStyle = '#78354f';
+    ctx.fillStyle = '#6b5439';
     ctx.font = '600 20px "Be Vietnam Pro", sans-serif';
     ctx.fillText('From Pun with all best wishes ♥', width / 2, cardY + cardH - 38);
 
     // 11. Footer (Y ~1538 — dưới safe zone TikTok nhưng trong safe zone FB Story)
-    ctx.fillStyle = '#9f1239';
+    ctx.fillStyle = '#6b5439';
     ctx.font = '600 17px "Space Grotesk", sans-serif';
     ctx.letterSpacing = '1.5px';
     ctx.fillText('MEMORIES & BLESSINGS  •  09/09/2002 - 2026', width / 2, cardY + cardH + 60);
@@ -273,7 +284,7 @@ class SouvenirCardGenerator {
 
     // Left Wing
     ctx.beginPath();
-    ctx.fillStyle = '#e11d48';
+    ctx.fillStyle = '#d81e46';
     ctx.moveTo(0, 0);
     ctx.bezierCurveTo(-size * 0.4, -size * 0.7, -size * 1.1, -size * 0.5, -size * 0.9, 0);
     ctx.bezierCurveTo(-size * 1.1, size * 0.5, -size * 0.4, size * 0.7, 0, 0);

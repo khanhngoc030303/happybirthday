@@ -1,5 +1,6 @@
 # IDE & Assistant Tooling
 .agents/
+.claude/
 design-system/
 
 # Temporary / Cache Files
