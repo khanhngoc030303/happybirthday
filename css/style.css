@@ -516,36 +516,8 @@ h1, h2, h3, h4 {
 }
 
 /* ==========================================================================
-   NAVIGATION — diary tab index (right edge) + wax-seal brand mark (top-left)
+   NAVIGATION — diary tab index (right edge)
    ========================================================================== */
-.brand-seal {
-  position: fixed;
-  top: max(14px, calc(12px + var(--sat)));
-  left: max(14px, calc(12px + var(--sal)));
-  z-index: 90;
-  width: 52px;
-  height: 52px;
-  border-radius: 50%;
-  background: radial-gradient(circle at 35% 32%, #ff4d79, var(--hk-bow-red));
-  border: 3px solid var(--paper-cream);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #fff;
-  box-shadow: 0 6px 14px rgba(58, 43, 28, 0.35);
-  text-decoration: none;
-  transition: transform var(--transition-fast);
-}
-
-.brand-seal:hover {
-  transform: rotate(-8deg) scale(1.06);
-}
-
-.brand-seal .icon-svg {
-  width: 1.4em;
-  height: 1.4em;
-}
-
 .diary-tabs {
   position: fixed;
   top: 50%;
@@ -598,10 +570,6 @@ h1, h2, h3, h4 {
 @media (max-width: 768px) {
   .section {
     padding: 26px 0;
-  }
-  .brand-seal {
-    width: 44px;
-    height: 44px;
   }
   .diary-tabs {
     gap: 6px;
