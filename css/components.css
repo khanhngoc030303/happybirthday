@@ -1331,7 +1331,109 @@
   box-shadow: 0 1px 4px rgba(58, 43, 28, 0.15);
 }
 
-/* 4. Accessibility Focus Rings */
+/* 4. Interactive Pull-Tab Secret Note */
+.pull-tab-wrapper {
+  position: relative;
+  width: 100%;
+  margin-top: 22px;
+  z-index: 6;
+}
+
+.pull-tab-sleeve {
+  position: relative;
+  background: var(--paper-cream);
+  border: 2px dashed var(--ink-soft);
+  border-radius: var(--radius-sm);
+  padding: 14px 18px;
+  box-shadow: 2px 4px 0 rgba(58, 43, 28, 0.16);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  user-select: none;
+  transition: transform var(--transition-fast), background var(--transition-fast);
+}
+
+.pull-tab-sleeve:hover {
+  transform: translateY(-2px);
+  background: var(--paper-white);
+}
+
+.pull-tab-indicator {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-handwriting);
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--hk-bow-red);
+}
+
+.pull-tab-handle {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  background: var(--hk-bow-red);
+  color: #fff;
+  border-radius: var(--radius-full);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  box-shadow: 2px 2px 0 var(--ink);
+  transition: all var(--transition-fast);
+}
+
+.pull-tab-wrapper.pulled .pull-tab-handle {
+  background: var(--ink);
+  transform: scale(0.96);
+}
+
+.pull-tab-content {
+  display: grid;
+  grid-template-rows: 0fr;
+  opacity: 0;
+  transition: grid-template-rows 0.45s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.35s ease;
+  margin-top: 0;
+}
+
+.pull-tab-content > div {
+  overflow: hidden;
+}
+
+.pull-tab-wrapper.pulled .pull-tab-content {
+  grid-template-rows: 1fr;
+  opacity: 1;
+  margin-top: 10px;
+}
+
+.pull-tab-paper {
+  background: #fff9e6;
+  border: 2px solid var(--metal-brass);
+  border-radius: var(--radius-sm);
+  padding: 16px 20px;
+  box-shadow: 3px 6px 14px rgba(58, 43, 28, 0.16);
+  position: relative;
+  transform: rotate(-0.5deg);
+}
+
+.pull-tab-paper::before {
+  content: '';
+  position: absolute;
+  top: -9px;
+  left: 20px;
+  width: 48px;
+  height: 14px;
+  background: rgba(224, 166, 40, 0.45);
+  backdrop-filter: blur(1px);
+  transform: rotate(-4deg);
+  border-left: 1px dashed rgba(58, 43, 28, 0.2);
+  border-right: 1px dashed rgba(58, 43, 28, 0.2);
+}
+
+/* 5. Accessibility Focus Rings */
 :focus-visible {
   outline: 2px solid var(--hk-bow-red);
   outline-offset: 3px;
@@ -1430,6 +1532,12 @@
     grid-column: 8 / 13;
     grid-row: 3;
     margin-top: 46px;
+  }
+
+  .pull-tab-wrapper {
+    grid-column: 8 / 13;
+    grid-row: 4;
+    margin-top: 10px;
   }
 }
 

@@ -37,6 +37,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // 10. Scrapbook Tactile Micro-Interactions (Stamps, Paper clips, Tabs)
   initScrapbookTactileInteractions();
+
+  // 11. Secret Pull-Tab Note
+  initSecretPullTab();
 });
 
 /* --------------------------------------------------------------------------
@@ -752,5 +755,36 @@ function initScrapbookTactileInteractions() {
         window.birthdayAudio.playPaperClipClick();
       }
     });
+  });
+}
+
+/* --------------------------------------------------------------------------
+   11. SECRET PULL-TAB NOTE INTERACTION
+   -------------------------------------------------------------------------- */
+function initSecretPullTab() {
+  const pullTab = document.getElementById('secretPullTab');
+  const handleSpan = document.querySelector('#pullTabHandle span');
+  if (!pullTab) return;
+
+  const toggle = () => {
+    const isPulled = pullTab.classList.toggle('pulled');
+    pullTab.setAttribute('aria-expanded', isPulled ? 'true' : 'false');
+    if (handleSpan) {
+      handleSpan.textContent = isPulled ? 'Gấp lại' : 'Kéo ra xem';
+    }
+    if (window.birthdayAudio) {
+      window.birthdayAudio.playPaperRustle();
+    }
+    if (isPulled && window.particleEngine) {
+      window.particleEngine.triggerCelebrationBurst(35);
+    }
+  };
+
+  pullTab.addEventListener('click', toggle);
+  pullTab.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      toggle();
+    }
   });
 }
