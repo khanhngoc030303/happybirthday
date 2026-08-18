@@ -276,7 +276,7 @@ function initConstellationCanvas() {
         if (!hoveredStar) {
           ctx.save();
           const badgeText = '✦ Spica (Sao Chủ)';
-          ctx.font = 'bold 12px "Comfortaa", "Be Vietnam Pro", sans-serif';
+          ctx.font = 'bold 12px "Baloo 2", "Be Vietnam Pro", sans-serif';
           const textW = ctx.measureText(badgeText).width;
           
           // Badge background pill
@@ -354,7 +354,7 @@ function initConstellationCanvas() {
 
       // Text inside tooltip
       ctx.textAlign = 'center';
-      ctx.font = 'bold 11.5px "Comfortaa", "Be Vietnam Pro", sans-serif';
+      ctx.font = 'bold 11.5px "Baloo 2", "Be Vietnam Pro", sans-serif';
       ctx.fillStyle = s.isSpica ? '#fbbf24' : '#ffccd5';
       ctx.fillText(title, cardX + cardW / 2, cardY + 18);
 
@@ -506,6 +506,9 @@ function initSecretLockbox() {
   const pinDigits = document.querySelectorAll('.pin-digit');
   const unlockBtn = document.getElementById('unlockBoxBtn');
   const unlockedGift = document.getElementById('unlockedGift');
+  const pinDisplay = document.getElementById('pinDisplay');
+  const lockboxHint = document.getElementById('lockboxHint');
+  const defaultHintText = lockboxHint ? lockboxHint.textContent : '';
 
   pinDigits.forEach((input, index) => {
     input.addEventListener('input', () => {
@@ -537,7 +540,21 @@ function initSecretLockbox() {
         unlockBtn.textContent = 'Đã Mở Khóa Thành Công!';
         unlockBtn.disabled = true;
       } else {
-        alert("Gợi ý: Hãy nhập ngày và tháng sinh nhật của bạn (4 chữ số: 0909)!");
+        if (pinDisplay) {
+          pinDisplay.classList.remove('shake');
+          void pinDisplay.offsetWidth; // restart animation nếu bấm liên tiếp
+          pinDisplay.classList.add('shake');
+          setTimeout(() => pinDisplay.classList.remove('shake'), 500);
+        }
+        if (lockboxHint) {
+          lockboxHint.textContent = 'Ui, chưa đúng rồi! Thử lại với 4 số ngày sinh của Hai nhé (0909) 💗';
+          lockboxHint.classList.add('error');
+          setTimeout(() => {
+            lockboxHint.textContent = defaultHintText;
+            lockboxHint.classList.remove('error');
+          }, 2200);
+        }
+        pinDigits.forEach(d => d.value = '');
         pinDigits[0].focus();
       }
     });

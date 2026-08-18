@@ -353,6 +353,33 @@ class ParticleEngine {
       window.birthdayAudio.playFireworkPop();
     }
   }
+
+  // Gentle heart-only burst (used by the souvenir card download)
+  triggerHeartExplosion(count = 40) {
+    const originX = window.innerWidth / 2;
+    const originY = window.innerHeight * 0.75;
+    const heartColors = ['#ff4d79', '#ff7597', '#ff8da1', '#e11d48', '#fecdd3'];
+
+    for (let i = 0; i < count; i++) {
+      const angle = Math.random() * Math.PI * 2;
+      const speed = Math.random() * 7 + 3;
+
+      this.particles.push({
+        x: originX + (Math.random() * 60 - 30),
+        y: originY,
+        vx: Math.cos(angle) * speed,
+        vy: Math.sin(angle) * speed - 5,
+        size: Math.random() * 7 + 7,
+        color: heartColors[Math.floor(Math.random() * heartColors.length)],
+        rotation: Math.random() * Math.PI,
+        rotSpeed: (Math.random() - 0.5) * 0.15,
+        life: 1.0,
+        decay: Math.random() * 0.008 + 0.007,
+        gravity: 0.14,
+        type: 'heart'
+      });
+    }
+  }
 }
 
 window.particleEngine = new ParticleEngine();

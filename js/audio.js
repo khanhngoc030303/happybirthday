@@ -117,6 +117,15 @@ class BirthdayAudioEngine {
     });
   }
 
+  // SFX: Confetti/firework pop
+  playFireworkPop() {
+    this.init();
+    if (!this.sfxCtx) return;
+
+    this.playTone(880, 'triangle', 0.18, 0.18);
+    setTimeout(() => this.playTone(1318.51, 'sine', 0.22, 0.14), 60);
+  }
+
   playTone(freq, type = 'sine', duration = 0.5, gainLevel = 0.15) {
     if (this.isMuted || !this.sfxCtx) return;
 

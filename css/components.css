@@ -1,5 +1,5 @@
 /* ==========================================================================
-   COMPONENT STYLES: HELLO KITTY GAMER STREAMER (09/09/2002)
+   COMPONENT STYLES: HELLO KITTY KAWAII BIRTHDAY (09/09/2002)
    100% Vector SVG Iconography • Zero Structural Emojis
    ========================================================================== */
 
@@ -97,8 +97,8 @@
 }
 
 @keyframes pulseSeal {
-  0%, 100% { transform: scale(1); box-shadow: 0 8px 25px rgba(225, 29, 72, 0.4); }
-  50% { transform: scale(1.08); box-shadow: 0 14px 35px rgba(225, 29, 72, 0.65); }
+  0%, 100% { transform: scale(1) rotate(0deg); box-shadow: 0 8px 25px rgba(225, 29, 72, 0.4); }
+  50% { transform: scale(1.08) rotate(-3deg); box-shadow: 0 14px 35px rgba(225, 29, 72, 0.65); }
 }
 
 .envelope-recipient {
@@ -189,6 +189,8 @@
   border: 3px solid #ffffff;
   box-shadow: 0 4px 14px rgba(225, 29, 72, 0.4);
   z-index: 3;
+  animation: wiggle 3.6s ease-in-out infinite;
+  transform-origin: 60% 60%;
 }
 
 @keyframes pulseGlow {
@@ -286,6 +288,7 @@
   color: var(--hk-bow-red);
   line-height: 1;
   margin-bottom: 6px;
+  font-variant-numeric: tabular-nums;
 }
 
 .counter-unit {
@@ -714,12 +717,39 @@
   text-align: center;
   outline: none;
   transition: all var(--transition-fast);
+  font-variant-numeric: tabular-nums;
 }
 
 .pin-digit:focus {
   border-color: var(--hk-bow-red);
   box-shadow: 0 0 15px rgba(225, 29, 72, 0.3);
   background: #ffffff;
+}
+
+.pin-display.shake {
+  animation: pinShake 0.5s ease-in-out;
+}
+
+.pin-display.shake .pin-digit {
+  border-color: var(--hk-bow-red);
+  background: #fff0f0;
+}
+
+@keyframes pinShake {
+  0%, 100% { transform: translateX(0); }
+  20% { transform: translateX(-8px) rotate(-2deg); }
+  40% { transform: translateX(8px) rotate(2deg); }
+  60% { transform: translateX(-6px) rotate(-1deg); }
+  80% { transform: translateX(6px) rotate(1deg); }
+}
+
+.lockbox-hint {
+  transition: color var(--transition-fast);
+}
+
+.lockbox-hint.error {
+  color: var(--hk-bow-red);
+  font-weight: 700;
 }
 
 .unlocked-gift {
@@ -810,7 +840,7 @@
 
 .modal-close-btn:hover {
   background: #ffe4eb;
-  transform: scale(1.08);
+  transform: scale(1.08) rotate(90deg);
 }
 
 .modal-close-btn:active {
@@ -958,6 +988,17 @@
   }
   #souvenirCanvas {
     max-width: 250px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-avatar-ribbon,
+  .wax-seal,
+  .nav-brand:hover .icon-svg {
+    animation: none;
+  }
+  .modal-close-btn:hover {
+    transform: scale(1.08);
   }
 }
 

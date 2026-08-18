@@ -142,11 +142,11 @@ class SouvenirCardGenerator {
 
     // 8. Main Title
     ctx.fillStyle = '#e11d48';
-    ctx.font = 'bold 52px "Comfortaa", "Be Vietnam Pro", sans-serif';
+    ctx.font = 'bold 52px "Baloo 2", "Be Vietnam Pro", sans-serif';
     ctx.fillText('HAPPY BIRTHDAY', width / 2, 484);
 
     ctx.fillStyle = '#1e1017';
-    ctx.font = 'bold 68px "Comfortaa", "Be Vietnam Pro", sans-serif';
+    ctx.font = 'bold 68px "Baloo 2", "Be Vietnam Pro", sans-serif';
     ctx.fillText('Nguyễn Ngọc Bảo Thuy', width / 2, 572);
 
     // 9. Pill Badge (Date & Zodiac)
@@ -209,7 +209,7 @@ class SouvenirCardGenerator {
     // line spacing 50px × 10 lines: last idx9 = cardY+145+9×50 = 692+145+450 = 1287
     // Divider: cardY+cardH-88 = 1354  →  gap = 67px ✓  No overlap!
     ctx.fillStyle = '#1e1017';
-    ctx.font = 'bold 28px "Patrick Hand", "Be Vietnam Pro", cursive';
+    ctx.font = 'bold 28px "Mali", "Be Vietnam Pro", cursive';
     const lines = [
       'Chúc Hai bước sang tuổi 24',
       'luôn luôn xinh đẹp, rạng rỡ, ngập tràn',
