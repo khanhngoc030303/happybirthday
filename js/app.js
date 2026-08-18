@@ -788,12 +788,12 @@ function initSecretPullTab() {
 
     if (isOpen) {
       pullWrapper.classList.add('pulled');
-      if (handleText) handleText.textContent = '↟ ĐẨY LÊN ĐỂ ĐÓNG ↟';
+      if (handleText) handleText.textContent = 'ĐẨY LÊN ĐỂ ĐÓNG';
       if (window.birthdayAudio) window.birthdayAudio.playPaperRustle();
       if (window.particleEngine) window.particleEngine.triggerCelebrationBurst(35);
     } else {
       pullWrapper.classList.remove('pulled');
-      if (handleText) handleText.textContent = '✥ NẮM & KÉO XUỐNG ↡';
+      if (handleText) handleText.textContent = 'NẮM & KÉO XUỐNG';
       if (window.birthdayAudio) window.birthdayAudio.playPaperRustle();
     }
   };
