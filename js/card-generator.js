@@ -166,23 +166,21 @@ class SouvenirCardGenerator {
     ctx.font = 'bold 21px "Space Grotesk", "Be Vietnam Pro", monospace';
     ctx.fillText('09 . 09 . 2002  |  VIRGO', width / 2, 640);
 
-    // 10. Frosted Glass Quote Card
-    // cardY=692, cardH=750 → card bottom=1442 (trong TikTok safe zone ~1440)
-    // Last text line idx9: 692+145+9×50=1277 | Divider: 1442-88=1354 | Gap=77px ✓
-    const cardX = 80;
-    const cardY = 692;
-    const cardW = width - 160;
-    const cardH = 750;
+    // 10. Frosted Paper Quote Card (Balanced 9:16 Story Layout)
+    const cardX = 74;
+    const cardY = 710;
+    const cardW = width - 148;
+    const cardH = 780;
 
     // Card shadow
     ctx.shadowColor = 'rgba(58, 43, 28, 0.18)';
-    ctx.shadowBlur = 34;
+    ctx.shadowBlur = 36;
     ctx.shadowOffsetY = 14;
 
     // Card background
     ctx.fillStyle = 'rgba(251, 243, 226, 0.98)';
     ctx.beginPath();
-    ctx.roundRect(cardX, cardY, cardW, cardH, 14);
+    ctx.roundRect(cardX, cardY, cardW, cardH, 16);
     ctx.fill();
 
     // Reset shadow
@@ -195,10 +193,12 @@ class SouvenirCardGenerator {
     ctx.lineWidth = 2;
     ctx.stroke();
 
-    // Card Top Pill Tag
+    // Card Top Pill Tag (compact & elegant)
+    const tagW = 380;
+    const tagH = 46;
     ctx.fillStyle = '#fff2da';
     ctx.beginPath();
-    ctx.roundRect(width / 2 - 224, cardY + 34, 448, 50, 8);
+    ctx.roundRect(width / 2 - tagW / 2, cardY + 34, tagW, tagH, 8);
     ctx.fill();
     ctx.strokeStyle = 'rgba(216, 30, 70, 0.4)';
     ctx.lineWidth = 1.5;
@@ -206,69 +206,89 @@ class SouvenirCardGenerator {
     ctx.stroke();
     ctx.setLineDash([]);
 
+    ctx.textAlign = 'center';
     ctx.fillStyle = '#d81e46';
-    ctx.font = 'bold 21px "Be Vietnam Pro", sans-serif';
-    ctx.fillText('CHÚC MỪNG HAI TUỔI 24 RỰC RỠ', width / 2, cardY + 66);
+    ctx.font = 'bold 19px "Be Vietnam Pro", sans-serif';
+    ctx.fillText('CHÚC MỪNG HAI TUỔI 24 RỰC RỠ', width / 2, cardY + 63);
 
-    // Decorative Sparkle Stars
-    this.drawStar(ctx, width / 2 - 252, cardY + 60, 11, '#b4770f');
-    this.drawStar(ctx, width / 2 + 252, cardY + 60, 11, '#b4770f');
+    // Decorative Sparkle Vector Stars
+    this.drawStar(ctx, width / 2 - tagW / 2 - 24, cardY + 57, 10, '#b4770f');
+    this.drawStar(ctx, width / 2 + tagW / 2 + 24, cardY + 57, 10, '#b4770f');
 
-    // Heartfelt Wishes
-    // line spacing 50px × 10 lines: last idx9 = cardY+145+9×50 = 692+145+450 = 1287
-    // Divider: cardY+cardH-88 = 1354  →  gap = 67px ✓  No overlap!
+    // ── AUTHENTIC HANDWRITTEN LETTER (Left-Aligned Mali Cursive) ──
+    const leftMargin = cardX + 56;
+    const rightMargin = cardX + cardW - 56;
+
+    // Faint Notebook Ruled Lines
+    ctx.strokeStyle = 'rgba(58, 43, 28, 0.08)';
+    ctx.lineWidth = 1;
+    ctx.setLineDash([4, 4]);
+    for (let ly = cardY + 144; ly <= cardY + 570; ly += 46) {
+      ctx.beginPath();
+      ctx.moveTo(leftMargin - 10, ly);
+      ctx.lineTo(rightMargin + 10, ly);
+      ctx.stroke();
+    }
+    ctx.setLineDash([]);
+
+    // Salutation
+    ctx.textAlign = 'left';
+    ctx.fillStyle = '#d81e46';
+    ctx.font = 'bold 30px "Mali", "Be Vietnam Pro", cursive';
+    ctx.fillText('Gửi Hai của Pun,', leftMargin, cardY + 138);
+
+    // Body Paragraphs in Pure Handwriting Font (Mali)
     ctx.fillStyle = '#3a2b1c';
-    ctx.font = 'bold 28px "Mali", "Be Vietnam Pro", cursive';
-    const lines = [
-      'Chúc Hai bước sang tuổi 24',
-      'luôn luôn xinh đẹp, rạng rỡ, ngập tràn',
-      'niềm vui và gặt hái thật nhiều thành công!',
-      '',
-      'Chúc con đường của Hai luôn rộng mở,',
-      'may mắn, công việc streamer bùng nổ và',
-      'nhận được thật nhiều yêu thương.',
-      '',
-      'Chúc Hai tuổi mới rực rỡ, bình an',
-      'và luôn tỏa sáng! ✨'
+    ctx.font = '600 25px "Mali", "Be Vietnam Pro", cursive';
+
+    const letterLines = [
+      { text: 'Chúc mừng Hai bước sang tuổi 24 ngập tràn niềm vui,', y: cardY + 190 },
+      { text: 'tiếng cười và những điều ngọt ngào nhất!', y: cardY + 236 },
+
+      { text: 'Chúc hành trình tương lai của Hai luôn rộng mở,', y: cardY + 300 },
+      { text: 'công việc streamer ngày càng bùng nổ, luôn giữ', y: cardY + 346 },
+      { text: 'ngọn lửa đam mê và nhận được thật nhiều yêu thương.', y: cardY + 392 },
+
+      { text: 'Tuổi mới chúc Hai luôn luôn xinh đẹp, tự tin, rực rỡ', y: cardY + 456 },
+      { text: 'và vững vàng chinh phục mọi ước mơ của mình nhé!', y: cardY + 502 }
     ];
 
-    lines.forEach((line, idx) => {
-      ctx.fillText(line, width / 2, cardY + 145 + idx * 50);
+    letterLines.forEach(item => {
+      ctx.fillText(item.text, leftMargin, item.y);
     });
 
-    // Decorative Mini Divider
-    ctx.strokeStyle = 'rgba(58, 43, 28, 0.3)';
-    ctx.lineWidth = 2;
-    ctx.setLineDash([2, 6]);
+    // Decorative Divider Line
+    ctx.strokeStyle = 'rgba(58, 43, 28, 0.25)';
+    ctx.lineWidth = 1.5;
+    ctx.setLineDash([3, 5]);
     ctx.beginPath();
-    ctx.moveTo(width / 2 - 160, cardY + cardH - 88);
-    ctx.lineTo(width / 2 + 160, cardY + cardH - 88);
+    ctx.moveTo(leftMargin, cardY + 575);
+    ctx.lineTo(rightMargin, cardY + 575);
     ctx.stroke();
     ctx.setLineDash([]);
 
-    // Mini Heart in divider center
-    ctx.fillStyle = '#d81e46';
-    ctx.beginPath();
-    ctx.arc(width / 2, cardY + cardH - 88, 5, 0, Math.PI * 2);
-    ctx.fill();
-
-    // Signature inside card
+    // Handwritten Sign-off (Right-Aligned)
+    ctx.textAlign = 'right';
     ctx.fillStyle = '#6b5439';
-    ctx.font = '600 20px "Be Vietnam Pro", sans-serif';
-    ctx.fillText('From Pun with all best wishes ♥', width / 2, cardY + cardH - 38);
+    ctx.font = '600 22px "Mali", "Be Vietnam Pro", cursive';
+    ctx.fillText('— Pun gửi Hai những lời chúc tốt đẹp nhất', rightMargin, cardY + 630);
+
+    ctx.fillStyle = '#d81e46';
+    ctx.font = 'bold 20px "Space Grotesk", sans-serif';
+    ctx.fillText('09.09.2026', rightMargin, cardY + 665);
 
     // Vintage Scrapbook Accents: Brass Paper Clip on Top-Left
-    this.drawPaperClip(ctx, cardX + 48, cardY - 18, 22, 68);
+    this.drawPaperClip(ctx, cardX + 36, cardY - 22, 22, 70);
 
-    // Authentic Postal Stamp & Cancellation Postmark on Top-Right
-    this.drawPostageStamp(ctx, cardX + cardW - 128, cardY - 24, 94, 118);
-    this.drawPostalStamp(ctx, cardX + cardW - 158, cardY + 36, 42, '09.09.26', 'PUN TO HAI', 'SPECIAL AIR MAIL');
+    // Authentic Postage Stamp & Cancellation Postmark on Top-Right
+    this.drawPostageStamp(ctx, cardX + cardW - 116, cardY - 26, 88, 112);
+    this.drawPostalStamp(ctx, cardX + cardW - 146, cardY + 32, 40, '09.09.26', 'PUN TO HAI', 'SPECIAL AIR MAIL');
 
-    // 11. Footer (Y ~1538 — dưới safe zone TikTok nhưng trong safe zone FB Story)
+    // 11. Footer
     ctx.fillStyle = '#6b5439';
     ctx.font = '600 17px "Space Grotesk", sans-serif';
     ctx.letterSpacing = '1.5px';
-    ctx.fillText('MEMORIES & BLESSINGS  •  09/09/2002 - 2026', width / 2, cardY + cardH + 60);
+    ctx.fillText('MEMORIES & BLESSINGS  •  09/09/2002 - 2026', width / 2, cardY + cardH + 58);
     ctx.letterSpacing = '0px';
 
     // Pre-compute Blob URL — không cần user gesture ở bước này
@@ -422,29 +442,88 @@ class SouvenirCardGenerator {
     }
 
     // Inner illustration frame
-    ctx.fillStyle = '#fbf3e2';
+    ctx.fillStyle = '#fffbf2';
     ctx.fillRect(7, 7, width - 14, height - 14);
 
-    ctx.strokeStyle = '#d81e46';
-    ctx.lineWidth = 1.5;
+    ctx.strokeStyle = '#a62438';
+    ctx.lineWidth = 1.2;
     ctx.strokeRect(9, 9, width - 18, height - 18);
 
-    // Stamp Typography & Content
+    // Inner dotted inset
+    ctx.strokeStyle = 'rgba(166, 36, 56, 0.4)';
+    ctx.lineWidth = 1;
+    ctx.setLineDash([2, 3]);
+    ctx.strokeRect(12, 12, width - 24, height - 24);
+    ctx.setLineDash([]);
+
+    // Stamp Header
     ctx.textAlign = 'center';
     ctx.textBaseline = 'middle';
+    ctx.fillStyle = '#a62438';
+    ctx.font = 'bold 8.5px "Space Grotesk", sans-serif';
+    ctx.letterSpacing = '1px';
+    ctx.fillText('POST CARD', width / 2, 21);
+    ctx.letterSpacing = '0px';
 
-    ctx.fillStyle = '#d81e46';
+    // ── VINTAGE BOTANICAL WILDFLOWER ILLUSTRATION ──
+    const flowerCX = width / 2;
+    const flowerCY = 54;
+
+    // Stem
+    ctx.beginPath();
+    ctx.strokeStyle = '#556b46';
+    ctx.lineWidth = 1.5;
+    ctx.lineCap = 'round';
+    ctx.moveTo(flowerCX, flowerCY + 26);
+    ctx.quadraticCurveTo(flowerCX - 3, flowerCY + 12, flowerCX, flowerCY);
+    ctx.stroke();
+
+    // Side Leaves
+    ctx.fillStyle = '#6d835e';
+    // Left leaf
+    ctx.beginPath();
+    ctx.moveTo(flowerCX - 1, flowerCY + 18);
+    ctx.quadraticCurveTo(flowerCX - 12, flowerCY + 14, flowerCX - 10, flowerCY + 8);
+    ctx.quadraticCurveTo(flowerCX - 4, flowerCY + 14, flowerCX - 1, flowerCY + 18);
+    ctx.fill();
+
+    // Right leaf
+    ctx.beginPath();
+    ctx.moveTo(flowerCX + 1, flowerCY + 11);
+    ctx.quadraticCurveTo(flowerCX + 12, flowerCY + 7, flowerCX + 10, flowerCY + 2);
+    ctx.quadraticCurveTo(flowerCX + 4, flowerCY + 7, flowerCX + 1, flowerCY + 11);
+    ctx.fill();
+
+    // Blossom Petals (5-petal wildflower)
+    const petalCount = 5;
+    for (let p = 0; p < petalCount; p++) {
+      const angle = (p * Math.PI * 2) / petalCount - Math.PI / 2;
+      const px = flowerCX + Math.cos(angle) * 7;
+      const py = flowerCY + Math.sin(angle) * 7;
+
+      ctx.beginPath();
+      ctx.fillStyle = '#d81e46';
+      ctx.arc(px, py, 4.5, 0, Math.PI * 2);
+      ctx.fill();
+
+      ctx.beginPath();
+      ctx.fillStyle = '#ff8fa8';
+      ctx.arc(px, py, 2.5, 0, Math.PI * 2);
+      ctx.fill();
+    }
+
+    // Golden Flower Center
+    ctx.beginPath();
+    ctx.fillStyle = '#e0a628';
+    ctx.arc(flowerCX, flowerCY, 3.5, 0, Math.PI * 2);
+    ctx.fill();
+
+    // Stamp Footer & Denomination
+    ctx.fillStyle = '#a62438';
     ctx.font = 'bold 9px "Space Grotesk", sans-serif';
-    ctx.fillText('VIETNAM POST', width / 2, 20);
-
-    ctx.font = 'bold 22px "Baloo 2", sans-serif';
-    ctx.fillText('09 · 09', width / 2, height / 2 - 2);
-
-    ctx.font = 'bold 12px "Space Grotesk", sans-serif';
-    ctx.fillText('24th', width / 2, height / 2 + 20);
-
-    ctx.font = 'bold 9px "Space Grotesk", sans-serif';
-    ctx.fillText('HAI SPECIAL', width / 2, height - 18);
+    ctx.letterSpacing = '0.5px';
+    ctx.fillText('2026', width / 2, height - 20);
+    ctx.letterSpacing = '0px';
 
     ctx.restore();
   }
