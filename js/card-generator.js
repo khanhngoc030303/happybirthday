@@ -257,9 +257,12 @@ class SouvenirCardGenerator {
     ctx.font = '600 20px "Be Vietnam Pro", sans-serif';
     ctx.fillText('From Pun with all best wishes ♥', width / 2, cardY + cardH - 38);
 
-    // Vintage Scrapbook Accents on Canvas: Brass Paper Clip & Postal Stamp
-    this.drawPaperClip(ctx, cardX + cardW - 65, cardY - 18, 22, 68);
-    this.drawPostalStamp(ctx, cardX + 110, cardY + cardH - 70, 48, '09.09.26', 'PUN TO HAI', 'SPECIAL AIR MAIL');
+    // Vintage Scrapbook Accents: Brass Paper Clip on Top-Left
+    this.drawPaperClip(ctx, cardX + 48, cardY - 18, 22, 68);
+
+    // Authentic Postal Stamp & Cancellation Postmark on Top-Right
+    this.drawPostageStamp(ctx, cardX + cardW - 128, cardY - 24, 94, 118);
+    this.drawPostalStamp(ctx, cardX + cardW - 158, cardY + 36, 42, '09.09.26', 'PUN TO HAI', 'SPECIAL AIR MAIL');
 
     // 11. Footer (Y ~1538 — dưới safe zone TikTok nhưng trong safe zone FB Story)
     ctx.fillStyle = '#6b5439';
@@ -374,6 +377,74 @@ class SouvenirCardGenerator {
     ctx.beginPath();
     ctx.roundRect(4, 6, width - 8, height - 6, [width / 2 - 4, width / 2 - 4, 0, 0]);
     ctx.fill();
+
+    ctx.restore();
+  }
+
+  drawPostageStamp(ctx, x, y, width, height) {
+    ctx.save();
+    ctx.translate(x, y);
+    ctx.rotate((3.5 * Math.PI) / 180);
+
+    // Stamp subtle shadow
+    ctx.shadowColor = 'rgba(58, 43, 28, 0.22)';
+    ctx.shadowBlur = 8;
+    ctx.shadowOffsetY = 3;
+
+    // Perforated stamp background
+    ctx.fillStyle = '#fffaf0';
+    ctx.fillRect(0, 0, width, height);
+
+    ctx.shadowColor = 'transparent';
+
+    // Perforations (punched half-circle holes along all 4 edges)
+    ctx.fillStyle = '#f6ead0'; // matches canvas backdrop
+    const holeRadius = 3.5;
+    const spacing = 11;
+
+    // Top and bottom holes
+    for (let hx = spacing / 2; hx < width; hx += spacing) {
+      ctx.beginPath();
+      ctx.arc(hx, 0, holeRadius, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.beginPath();
+      ctx.arc(hx, height, holeRadius, 0, Math.PI * 2);
+      ctx.fill();
+    }
+    // Left and right holes
+    for (let hy = spacing / 2; hy < height; hy += spacing) {
+      ctx.beginPath();
+      ctx.arc(0, hy, holeRadius, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.beginPath();
+      ctx.arc(width, hy, holeRadius, 0, Math.PI * 2);
+      ctx.fill();
+    }
+
+    // Inner illustration frame
+    ctx.fillStyle = '#fbf3e2';
+    ctx.fillRect(7, 7, width - 14, height - 14);
+
+    ctx.strokeStyle = '#d81e46';
+    ctx.lineWidth = 1.5;
+    ctx.strokeRect(9, 9, width - 18, height - 18);
+
+    // Stamp Typography & Content
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+
+    ctx.fillStyle = '#d81e46';
+    ctx.font = 'bold 9px "Space Grotesk", sans-serif';
+    ctx.fillText('VIETNAM POST', width / 2, 20);
+
+    ctx.font = 'bold 22px "Baloo 2", sans-serif';
+    ctx.fillText('09 · 09', width / 2, height / 2 - 2);
+
+    ctx.font = 'bold 12px "Space Grotesk", sans-serif';
+    ctx.fillText('24th', width / 2, height / 2 + 20);
+
+    ctx.font = 'bold 9px "Space Grotesk", sans-serif';
+    ctx.fillText('HAI SPECIAL', width / 2, height - 18);
 
     ctx.restore();
   }
