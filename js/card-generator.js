@@ -413,13 +413,14 @@ class SouvenirCardGenerator {
     ctx.font = 'bold 10px "Space Grotesk", sans-serif';
     ctx.fillText(labelBottom, 0, radius * 0.48);
 
-    // Postal wavy cancellation lines on the right
+    // Postal wavy cancellation lines starting seamlessly from circle edge
     ctx.lineWidth = 2;
     for (let row = -16; row <= 16; row += 10) {
+      const startX = Math.sqrt(Math.max(0, radius * radius - row * row)) - 1;
       ctx.beginPath();
-      ctx.moveTo(radius + 12, row);
-      ctx.bezierCurveTo(radius + 28, row - 6, radius + 44, row + 6, radius + 60, row);
-      ctx.bezierCurveTo(radius + 76, row - 6, radius + 92, row + 6, radius + 108, row);
+      ctx.moveTo(startX, row);
+      ctx.bezierCurveTo(startX + 16, row - 6, startX + 32, row + 6, startX + 48, row);
+      ctx.bezierCurveTo(startX + 64, row - 6, startX + 80, row + 6, startX + 96, row);
       ctx.stroke();
     }
 
